@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d2438"/>
+      <stop offset="100%" stop-color="#0f7d8c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.9">
+    <path d="M400 220c-33 0-60 27-60 60v40h-40c-33 0-60 27-60 60s27 60 60 60h40v40c0 33 27 60 60 60s60-27 60-60v-40h40c33 0 60-27 60-60s-27-60-60-60h-40v-40c0-33-27-60-60-60z"/>
+  </g>
+  <text x="400" y="500" font-family="Arial, sans-serif" font-size="26" fill="#e7f1f2" text-anchor="middle" opacity="0.85">Image coming soon</text>
+</svg>

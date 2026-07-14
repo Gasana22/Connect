@@ -1,0 +1,83 @@
+<?php
+require_once __DIR__ . '/includes/init.php';
+
+$hospitalCount = (int)$pdo->query("SELECT COUNT(*) c FROM hospitals WHERE status='published'")->fetch()['c'];
+$destinationCount = (int)$pdo->query("SELECT COUNT(*) c FROM destinations WHERE status='published'")->fetch()['c'];
+$doctorCount = (int)$pdo->query("SELECT COUNT(*) c FROM doctors WHERE status='published'")->fetch()['c'];
+
+$pageTitle = 'About Us';
+$pageDescription = 'Learn about our mission to make quality healthcare abroad accessible and transparent.';
+require_once __DIR__ . '/includes/header.php';
+?>
+
+<div class="page-header">
+  <div class="container">
+    <h1>About <?= e(setting($pdo, 'site_name')) ?></h1>
+    <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">About</span></nav>
+  </div>
+</div>
+
+<div class="container py-5">
+  <div class="row g-5 align-items-center">
+    <div class="col-lg-6">
+      <span class="section-title-badge">Our Story</span>
+      <h2 class="mt-3 fw-heading">Making Global Healthcare Simple &amp; Transparent</h2>
+      <p class="text-muted"><?= nl2br(e(setting($pdo, 'about_content'))) ?></p>
+      <p class="text-muted">We partner exclusively with internationally accredited hospitals and experienced specialists, and every quote we provide includes clear, upfront pricing so there are no surprises when you travel.</p>
+    </div>
+    <div class="col-lg-6">
+      <div class="row g-3">
+        <div class="col-6">
+          <div class="card shadow-card p-4 text-center">
+            <div class="price-tag fs-2"><?= $hospitalCount ?>+</div>
+            <div class="text-muted small">Partner Hospitals</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card shadow-card p-4 text-center">
+            <div class="price-tag fs-2"><?= $doctorCount ?>+</div>
+            <div class="text-muted small">Specialist Doctors</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card shadow-card p-4 text-center">
+            <div class="price-tag fs-2"><?= $destinationCount ?>+</div>
+            <div class="text-muted small">Destinations</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card shadow-card p-4 text-center">
+            <div class="price-tag fs-2">12k+</div>
+            <div class="text-muted small">Patients Helped</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row g-4 mt-5">
+    <div class="col-md-4">
+      <div class="icon-box mb-3"><i class="bi bi-shield-check"></i></div>
+      <h6 class="fw-semibold">Our Mission</h6>
+      <p class="text-muted small">To connect every patient with safe, affordable, world-class healthcare, wherever they are in the world.</p>
+    </div>
+    <div class="col-md-4">
+      <div class="icon-box mb-3"><i class="bi bi-eye"></i></div>
+      <h6 class="fw-semibold">Our Vision</h6>
+      <p class="text-muted small">A world where distance and cost are never barriers to receiving excellent medical care.</p>
+    </div>
+    <div class="col-md-4">
+      <div class="icon-box mb-3"><i class="bi bi-heart"></i></div>
+      <h6 class="fw-semibold">Our Values</h6>
+      <p class="text-muted small">Transparency, patient safety and genuine care guide every recommendation we make.</p>
+    </div>
+  </div>
+
+  <div class="cta-banner p-5 text-center mt-5">
+    <h2 class="fw-heading">Have questions about your treatment options?</h2>
+    <p class="mb-4">Speak to one of our patient coordinators today, free of charge.</p>
+    <a href="<?= e(BASE_URL) ?>/contact.php" class="btn btn-light rounded-pill px-4 fw-semibold">Contact Us</a>
+  </div>
+</div>
+
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
