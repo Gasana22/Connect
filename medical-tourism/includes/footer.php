@@ -1,10 +1,10 @@
-<?php $siteName = setting($pdo, 'site_name', 'MedJourney'); ?>
+<?php $siteName = setting($pdo, 'site_name', "Let's Go Medical"); ?>
 <footer class="site-footer mt-5">
   <div class="container py-5">
     <div class="row g-4">
       <div class="col-lg-4">
-        <a class="navbar-brand fw-bold text-white" href="<?= e(BASE_URL) ?>/index.php">
-          <i class="bi bi-heart-pulse-fill brand-icon"></i> <?= e($siteName) ?>
+        <a class="navbar-brand logo-badge" href="<?= e(BASE_URL) ?>/index.php">
+          <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="brand-logo">
         </a>
         <p class="mt-3 text-light-emphasis small"><?= e(setting($pdo, 'site_tagline')) ?>. We help patients find internationally accredited hospitals and trusted doctors abroad, with transparent pricing and dedicated support at every step.</p>
         <div class="d-flex gap-3 fs-5">
@@ -55,7 +55,7 @@
   <i class="bi bi-whatsapp"></i>
 </a>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?= e(BASE_URL) ?>/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="<?= e(BASE_URL) ?>/assets/js/main.js"></script>
 </body>
 </html>

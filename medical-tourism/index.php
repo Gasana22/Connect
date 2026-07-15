@@ -50,6 +50,9 @@ require_once __DIR__ . '/includes/header.php';
       </div>
     </div>
   </div>
+  <div class="hero-wave">
+    <svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path fill="#ffffff" d="M0,32 C240,70 480,0 720,18 C960,36 1200,70 1440,28 L1440,70 L0,70 Z"></path></svg>
+  </div>
 </section>
 
 <div class="container">
@@ -120,7 +123,7 @@ require_once __DIR__ . '/includes/header.php';
 <section class="py-5 bg-brand-light">
   <div class="container">
     <div class="text-center mb-5">
-      <span class="section-title-badge">Why MedJourney</span>
+      <span class="section-title-badge">Why <?= e($siteName) ?></span>
       <h2 class="mt-3 fw-heading">Care You Can Trust, From Enquiry to Recovery</h2>
     </div>
     <div class="row g-4">

@@ -1,7 +1,7 @@
 <?php
 // Expects $pdo to already be available and functions.php to be loaded.
 // Optional per-page variables: $pageTitle, $pageDescription
-$siteName = setting($pdo, 'site_name', 'MedJourney');
+$siteName = setting($pdo, 'site_name', "Let's Go Medical");
 $pageTitle = isset($pageTitle) && $pageTitle !== '' ? $pageTitle . ' | ' . $siteName : $siteName . ' - Trusted Medical Tourism';
 $pageDescription = $pageDescription ?? setting($pdo, 'site_tagline', 'Compare hospitals, doctors and treatment packages abroad and get a free quote today.');
 $currentPage = basename($_SERVER['PHP_SELF']);
@@ -15,9 +15,8 @@ $flash = flash_get();
 <title><?= e($pageTitle) ?></title>
 <meta name="description" content="<?= e($pageDescription) ?>">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2224%22 font-size=%2224%22>%E2%9A%95%EF%B8%8F</text></svg>">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="<?= e(BASE_URL) ?>/assets/css/style.css" rel="stylesheet">
 </head>
 <body>
@@ -38,8 +37,8 @@ $flash = flash_get();
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top main-navbar">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="<?= e(BASE_URL) ?>/index.php">
-      <i class="bi bi-heart-pulse-fill brand-icon"></i> <?= e($siteName) ?>
+    <a class="navbar-brand" href="<?= e(BASE_URL) ?>/index.php">
+      <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="brand-logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>

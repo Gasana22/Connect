@@ -1,4 +1,4 @@
-# MedJourney — Medical Tourism Platform
+# Let's Go Medical — Medical Tourism Platform
 
 A complete medical tourism website built in plain PHP + MySQL (PDO), with a full-featured admin panel. No framework, no Composer, no build step — just copy the folder into XAMPP's `htdocs` and go.
 
@@ -62,7 +62,7 @@ A complete medical tourism website built in plain PHP + MySQL (PDO), with a full
    ```
    Default credentials (change this password after first login, via *My Profile*):
    ```
-   Email:    admin@medjourney.test
+   Email:    admin@letsgomedical.test
    Password: admin123
    ```
 
@@ -93,5 +93,6 @@ medical-tourism/
 ## Customization
 
 - Site name, contact details, social links and "About" text are all editable from **Admin → Site Settings** — no code changes required.
-- Colors and theme live in `assets/css/style.css` (see the `:root` CSS variables at the top of the file).
+- Colors and theme live in `assets/css/style.css` (see the `:root` CSS variables at the top of the file — the palette is purple `#4b2e83` + blue `#2856c9` with a gold accent, matching the Let's Go Medical logo).
+- The logo is `assets/img/logo.svg`, referenced from the main header, footer, admin sidebar and admin login page. Replace this file with your own artwork (same filename) to swap it everywhere at once.
 - To add a new content type, follow the pattern used by `admin/treatments.php` + `admin/treatment-form.php`.

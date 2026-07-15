@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" role="img" aria-label="Let's Go Medical">
+  <defs>
+    <linearGradient id="tubeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#2856c9"/>
+      <stop offset="55%" stop-color="#6a3fb5"/>
+      <stop offset="100%" stop-color="#f6b51a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- LET'S GO wordmark -->
+  <text x="0" y="78" font-family="'Poppins','Arial Black',sans-serif" font-weight="800" font-size="74" fill="#4b2e83" letter-spacing="0">LET'S GO</text>
+
+  <!-- Medical script -->
+  <text x="18" y="150" font-family="Georgia,'Times New Roman',serif" font-style="italic" font-weight="700" font-size="66" fill="#4b2e83">Medical</text>
+
+  <!-- Stethoscope + arrow mark -->
+  <g transform="translate(390,10)">
+    <!-- ear tubes -->
+    <path d="M60 6 q-4 20 6 30" stroke="#4b2e83" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <path d="M108 6 q4 20 -6 30" stroke="#4b2e83" stroke-width="12" fill="none" stroke-linecap="round"/>
+    <circle cx="60" cy="8" r="9" fill="#4b2e83"/>
+    <circle cx="108" cy="8" r="9" fill="#4b2e83"/>
+
+    <!-- ring / head of stethoscope -->
+    <circle cx="84" cy="70" r="56" fill="none" stroke="#4b2e83" stroke-width="14"/>
+    <circle cx="84" cy="70" r="34" fill="#ffffff"/>
+    <rect x="30" y="62" width="108" height="16" rx="8" fill="url(#tubeGrad)"/>
+
+    <!-- tube down to the bell -->
+    <path d="M32 96 q-34 30 -6 58" stroke="#4b2e83" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <circle cx="26" cy="168" r="20" fill="none" stroke="#4b2e83" stroke-width="12"/>
+    <circle cx="26" cy="168" r="7" fill="#4b2e83"/>
+
+    <!-- go arrow -->
+    <path d="M170 40 h56 v-22 l48 44 l-48 44 v-22 h-56 z" fill="#f6b51a"/>
+  </g>
+</svg>

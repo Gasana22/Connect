@@ -33,9 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin Login | <?= e(setting($pdo, 'site_name')) ?></title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="<?= e(BASE_URL) ?>/assets/css/style.css" rel="stylesheet">
 </head>
 <body class="bg-navy d-flex align-items-center" style="min-height:100vh;">
@@ -44,9 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="col-md-5">
       <div class="card shadow-card p-4 p-md-5">
         <div class="text-center mb-4">
-          <i class="bi bi-heart-pulse-fill text-primary-brand" style="font-size:2.5rem;"></i>
-          <h4 class="fw-heading mt-2"><?= e(setting($pdo, 'site_name')) ?> Admin</h4>
-          <p class="text-muted small">Sign in to manage your site</p>
+          <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e(setting($pdo, 'site_name')) ?>" style="height:52px;">
+          <p class="text-muted small mt-3 mb-0">Sign in to manage your site</p>
         </div>
         <?php if ($error): ?>
           <div class="alert alert-danger"><?= e($error) ?></div>

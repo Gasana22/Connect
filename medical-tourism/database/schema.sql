@@ -1,5 +1,5 @@
 -- =====================================================================
--- MedJourney - Medical Tourism Platform
+-- Let's Go Medical - Medical Tourism Platform
 -- Database Schema + Seed Data
 -- Import this file via phpMyAdmin (XAMPP) or:
 --   mysql -u root -p < schema.sql
@@ -22,9 +22,9 @@ CREATE TABLE admin_users (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
--- Default login: admin@medjourney.test / admin123
+-- Default login: admin@letsgomedical.test / admin123
 INSERT INTO admin_users (name, email, password, role) VALUES
-('Site Administrator', 'admin@medjourney.test', '$2y$12$yFzRYvO7tk/ARMc6guLDhuYyAljAQeKM9U6CnpJFN6jthkXSyMxT2', 'super_admin');
+('Site Administrator', 'admin@letsgomedical.test', '$2y$12$yFzRYvO7tk/ARMc6guLDhuYyAljAQeKM9U6CnpJFN6jthkXSyMxT2', 'super_admin');
 
 -- ---------------------------------------------------------------------
 -- Destinations (countries)
@@ -180,9 +180,9 @@ CREATE TABLE blog_posts (
 ) ENGINE=InnoDB;
 
 INSERT INTO blog_posts (title, slug, excerpt, content, image, author, published_at) VALUES
-('How to Choose the Right Hospital Abroad', 'how-to-choose-the-right-hospital-abroad', 'Accreditation, surgeon experience and patient reviews are just the start. Here is our complete checklist.', '<p>Choosing a hospital abroad is one of the most important decisions in your medical travel journey. Look for international accreditation such as JCI, check surgeon credentials and read verified patient reviews before booking.</p><p>Our team personally vets every partner hospital on MedJourney against these criteria so you can book with confidence.</p>', 'blog-1.jpg', 'MedJourney Editorial Team', '2026-06-02 09:00:00'),
+('How to Choose the Right Hospital Abroad', 'how-to-choose-the-right-hospital-abroad', 'Accreditation, surgeon experience and patient reviews are just the start. Here is our complete checklist.', '<p>Choosing a hospital abroad is one of the most important decisions in your medical travel journey. Look for international accreditation such as JCI, check surgeon credentials and read verified patient reviews before booking.</p><p>Our team personally vets every partner hospital on Let''s Go Medical against these criteria so you can book with confidence.</p>', 'blog-1.jpg', 'Let''s Go Medical Editorial Team', '2026-06-02 09:00:00'),
 ('5 Questions to Ask Before Your Surgery Abroad', '5-questions-to-ask-before-your-surgery-abroad', 'From aftercare to insurance, these are the questions our patient coordinators recommend asking first.', '<p>1. What happens if I need follow-up care after returning home?<br>2. Is travel insurance with medical coverage included?<br>3. What is the surgeon''s complication rate?<br>4. Are all costs included in the package price?<br>5. Who will be my point of contact during recovery?</p>', 'blog-2.jpg', 'Dr. Amara Osei', '2026-06-18 09:00:00'),
-('Recovering Well: Tips for Medical Travel Aftercare', 'recovering-well-tips-for-medical-travel-aftercare', 'Recovery does not stop at the airport. Here is how to look after yourself once you are home.', '<p>Plan for rest, follow your surgeon''s aftercare instructions closely, and keep in touch with your care coordinator. Most complications can be avoided by following a structured recovery plan.</p>', 'blog-3.jpg', 'MedJourney Editorial Team', '2026-07-01 09:00:00');
+('Recovering Well: Tips for Medical Travel Aftercare', 'recovering-well-tips-for-medical-travel-aftercare', 'Recovery does not stop at the airport. Here is how to look after yourself once you are home.', '<p>Plan for rest, follow your surgeon''s aftercare instructions closely, and keep in touch with your care coordinator. Most complications can be avoided by following a structured recovery plan.</p>', 'blog-3.jpg', 'Let''s Go Medical Editorial Team', '2026-07-01 09:00:00');
 
 -- ---------------------------------------------------------------------
 -- Testimonials
@@ -238,13 +238,13 @@ CREATE TABLE settings (
 ) ENGINE=InnoDB;
 
 INSERT INTO settings (setting_key, setting_value) VALUES
-('site_name', 'MedJourney'),
-('site_tagline', 'Trusted care, anywhere in the world'),
+('site_name', "Let's Go Medical"),
+('site_tagline', 'Your trusted partner in medical travel'),
 ('site_phone', '+1 (800) 555-0134'),
 ('site_whatsapp', '+1 800 555 0134'),
-('site_email', 'care@medjourney.test'),
+('site_email', 'care@letsgomedical.test'),
 ('site_address', '221 Global Health Plaza, Suite 400, Miami, FL, USA'),
 ('facebook_url', 'https://facebook.com/'),
 ('instagram_url', 'https://instagram.com/'),
 ('youtube_url', 'https://youtube.com/'),
-('about_content', 'MedJourney connects patients from around the world with internationally accredited hospitals and specialist doctors, offering transparent pricing and dedicated patient coordinators from your first enquiry through to recovery at home.');
+('about_content', "Let's Go Medical connects patients from around the world with internationally accredited hospitals and specialist doctors, offering transparent pricing and dedicated patient coordinators from your first enquiry through to recovery at home.");
