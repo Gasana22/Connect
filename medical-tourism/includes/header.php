@@ -38,7 +38,7 @@ $flash = flash_get();
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top main-navbar">
   <div class="container">
     <a class="navbar-brand" href="<?= e(BASE_URL) ?>/index.php">
-      <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="brand-logo">
+      <img src="<?= e(logo_url($pdo)) ?>" alt="<?= e($siteName) ?>" class="brand-logo">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
@@ -53,7 +53,7 @@ $flash = flash_get();
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'about.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/about.php">About</a></li>
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'contact.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/contact.php">Contact</a></li>
       </ul>
-      <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-primary rounded-pill px-4 fw-semibold">Get Free Quote</a>
+      <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-primary rounded-pill px-4 fw-semibold"><?= e(setting($pdo, 'nav_cta_text', 'Get Free Quote')) ?></a>
     </div>
   </div>
 </nav>

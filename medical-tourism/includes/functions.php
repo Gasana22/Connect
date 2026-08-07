@@ -182,6 +182,21 @@ function img_url($folder, $filename) {
     return BASE_URL . '/assets/img/placeholder.svg';
 }
 
+// ---------------------------------------------------------------------
+// Resolve the site logo: the admin-uploaded logo if one exists, else the
+// default brand mark shipped with the site.
+// ---------------------------------------------------------------------
+function logo_url($pdo) {
+    $logo = setting($pdo, 'site_logo');
+    if ($logo) {
+        $diskPath = __DIR__ . '/../uploads/settings/' . $logo;
+        if (is_file($diskPath)) {
+            return BASE_URL . '/uploads/settings/' . rawurlencode($logo);
+        }
+    }
+    return BASE_URL . '/assets/img/logo.svg';
+}
+
 function star_rating($rating) {
     $rating = max(0, min(5, (int)$rating));
     $html = '';

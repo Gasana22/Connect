@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="col-md-5">
       <div class="card shadow-card p-4 p-md-5">
         <div class="text-center mb-4">
-          <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e(setting($pdo, 'site_name')) ?>" style="height:52px;">
+          <img src="<?= e(logo_url($pdo)) ?>" alt="<?= e(setting($pdo, 'site_name')) ?>" style="height:52px;">
           <p class="text-muted small mt-3 mb-0">Sign in to manage your site</p>
         </div>
         <?php if ($error): ?>

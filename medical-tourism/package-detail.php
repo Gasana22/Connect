@@ -25,6 +25,7 @@ if (!$package) {
 }
 
 $includesList = array_filter(array_map('trim', explode("\n", (string)$package['includes'])));
+$excludesList = array_filter(array_map('trim', explode("\n", (string)$package['excludes'])));
 
 $pageTitle = $package['title'];
 $pageDescription = $package['summary'];
@@ -46,13 +47,29 @@ require_once __DIR__ . '/includes/header.php';
       <h3 class="fw-heading">Package Overview</h3>
       <p><?= nl2br(e($package['description'])) ?></p>
 
-      <?php if ($includesList): ?>
-      <h3 class="fw-heading mt-4">What's Included</h3>
-      <ul class="list-unstyled">
-        <?php foreach ($includesList as $item): ?>
-          <li class="mb-2"><i class="bi bi-check-circle-fill text-primary-brand me-2"></i><?= e($item) ?></li>
-        <?php endforeach; ?>
-      </ul>
+      <?php if ($includesList || $excludesList): ?>
+      <div class="row g-4 mt-1">
+        <?php if ($includesList): ?>
+        <div class="col-md-6">
+          <h3 class="fw-heading">What's Included</h3>
+          <ul class="list-unstyled">
+            <?php foreach ($includesList as $item): ?>
+              <li class="mb-2"><i class="bi bi-check-circle-fill text-primary-brand me-2"></i><?= e($item) ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+        <?php endif; ?>
+        <?php if ($excludesList): ?>
+        <div class="col-md-6">
+          <h3 class="fw-heading">What's Excluded</h3>
+          <ul class="list-unstyled">
+            <?php foreach ($excludesList as $item): ?>
+              <li class="mb-2 text-muted"><i class="bi bi-x-circle-fill me-2"></i><?= e($item) ?></li>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+        <?php endif; ?>
+      </div>
       <?php endif; ?>
 
       <div class="row g-3 mt-3">

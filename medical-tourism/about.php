@@ -20,10 +20,10 @@ require_once __DIR__ . '/includes/header.php';
 <div class="container py-5">
   <div class="row g-5 align-items-center">
     <div class="col-lg-6">
-      <span class="section-title-badge">Our Story</span>
-      <h2 class="mt-3 fw-heading">Making Global Healthcare Simple &amp; Transparent</h2>
+      <span class="section-title-badge"><?= e(setting($pdo, 'about_badge_text', 'Our Story')) ?></span>
+      <h2 class="mt-3 fw-heading"><?= e(setting($pdo, 'about_heading', 'Making Global Healthcare Simple & Transparent')) ?></h2>
       <p class="text-muted"><?= nl2br(e(setting($pdo, 'about_content'))) ?></p>
-      <p class="text-muted">We partner exclusively with internationally accredited hospitals and experienced specialists, and every quote we provide includes clear, upfront pricing so there are no surprises when you travel.</p>
+      <p class="text-muted"><?= nl2br(e(setting($pdo, 'about_content_2'))) ?></p>
     </div>
     <div class="col-lg-6">
       <div class="row g-3">
@@ -47,8 +47,8 @@ require_once __DIR__ . '/includes/header.php';
         </div>
         <div class="col-6">
           <div class="card shadow-card p-4 text-center">
-            <div class="price-tag fs-2">12k+</div>
-            <div class="text-muted small">Patients Helped</div>
+            <div class="price-tag fs-2"><?= e(setting($pdo, 'about_stat_number', '12k+')) ?></div>
+            <div class="text-muted small"><?= e(setting($pdo, 'about_stat_label', 'Patients Helped')) ?></div>
           </div>
         </div>
       </div>
@@ -59,17 +59,17 @@ require_once __DIR__ . '/includes/header.php';
     <div class="col-md-4">
       <div class="icon-box mb-3"><i class="bi bi-shield-check"></i></div>
       <h6 class="fw-semibold">Our Mission</h6>
-      <p class="text-muted small">To connect every patient with safe, affordable, world-class healthcare, wherever they are in the world.</p>
+      <p class="text-muted small"><?= e(setting($pdo, 'mission_text')) ?></p>
     </div>
     <div class="col-md-4">
       <div class="icon-box mb-3"><i class="bi bi-eye"></i></div>
       <h6 class="fw-semibold">Our Vision</h6>
-      <p class="text-muted small">A world where distance and cost are never barriers to receiving excellent medical care.</p>
+      <p class="text-muted small"><?= e(setting($pdo, 'vision_text')) ?></p>
     </div>
     <div class="col-md-4">
       <div class="icon-box mb-3"><i class="bi bi-heart"></i></div>
       <h6 class="fw-semibold">Our Values</h6>
-      <p class="text-muted small">Transparency, patient safety and genuine care guide every recommendation we make.</p>
+      <p class="text-muted small"><?= e(setting($pdo, 'values_text')) ?></p>
     </div>
   </div>
 

@@ -62,4 +62,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     revealTargets.forEach(function (el) { revealObserver.observe(el); });
   }
+
+  // Hero background slider: simple crossfade rotation between uploaded
+  // slide images. No-op if zero or one slide is present.
+  var heroSlides = document.querySelectorAll('.hero-slide');
+  if (heroSlides.length > 1) {
+    var currentSlide = 0;
+    setInterval(function () {
+      heroSlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % heroSlides.length;
+      heroSlides[currentSlide].classList.add('active');
+    }, 5000);
+  }
 });

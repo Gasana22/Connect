@@ -17,21 +17,35 @@ $blogPosts = $pdo->query("SELECT * FROM blog_posts WHERE status = 'published' OR
 $hospitalCount = (int)$pdo->query("SELECT COUNT(*) c FROM hospitals WHERE status='published'")->fetch()['c'];
 $destinationCount = (int)$pdo->query("SELECT COUNT(*) c FROM destinations WHERE status='published'")->fetch()['c'];
 $treatmentCount = (int)$pdo->query("SELECT COUNT(*) c FROM treatments WHERE status='published'")->fetch()['c'];
+$heroSlides = $pdo->query("SELECT * FROM hero_slides WHERE status = 'published' ORDER BY sort_order ASC, id ASC")->fetchAll();
+$heroBadge = setting($pdo, 'hero_badge_text', 'Trusted by 12,000+ patients worldwide');
+$heroHeading = setting($pdo, 'hero_heading', 'Quality healthcare abroad, without the guesswork.');
+$heroSubtext = setting($pdo, 'hero_subtext', 'Compare accredited hospitals, specialist doctors and all-inclusive treatment packages. Get a free personalized quote in under 24 hours.');
+$heroPrimaryBtn = setting($pdo, 'hero_primary_btn_text', 'Get My Free Quote');
+$heroSecondaryBtn = setting($pdo, 'hero_secondary_btn_text', 'Browse Treatments');
 
 $pageTitle = 'World-Class Healthcare, Made Affordable';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<section class="hero">
+<section class="hero<?= $heroSlides ? ' hero-has-slides' : '' ?>">
+  <?php if ($heroSlides): ?>
+  <div class="hero-slides">
+    <?php foreach ($heroSlides as $i => $slide): ?>
+      <div class="hero-slide<?= $i === 0 ? ' active' : '' ?>" style="background-image:url('<?= e(img_url('hero-slides', $slide['image'])) ?>');"></div>
+    <?php endforeach; ?>
+  </div>
+  <div class="hero-overlay"></div>
+  <?php endif; ?>
   <div class="container position-relative">
     <div class="row align-items-center">
       <div class="col-lg-7">
-        <span class="section-title-badge">Trusted by 12,000+ patients worldwide</span>
-        <h1 class="mt-3">Quality healthcare abroad, without the guesswork.</h1>
-        <p class="lead mt-3">Compare accredited hospitals, specialist doctors and all-inclusive treatment packages. Get a free personalized quote in under 24 hours.</p>
+        <span class="section-title-badge"><?= e($heroBadge) ?></span>
+        <h1 class="mt-3"><?= e($heroHeading) ?></h1>
+        <p class="lead mt-3"><?= e($heroSubtext) ?></p>
         <div class="d-flex flex-wrap gap-3 mt-4">
-          <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-accent btn-lg rounded-pill px-4">Get My Free Quote</a>
-          <a href="<?= e(BASE_URL) ?>/treatments.php" class="btn btn-outline-primary btn-lg rounded-pill px-4">Browse Treatments</a>
+          <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-accent btn-lg rounded-pill px-4"><?= e($heroPrimaryBtn) ?></a>
+          <a href="<?= e(BASE_URL) ?>/treatments.php" class="btn btn-outline-primary btn-lg rounded-pill px-4"><?= e($heroSecondaryBtn) ?></a>
         </div>
         <div class="row hero-stats mt-5 py-3 mx-0">
           <div class="col-4 text-center">

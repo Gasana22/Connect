@@ -4,7 +4,7 @@
     <div class="row g-4">
       <div class="col-lg-4">
         <a class="navbar-brand" href="<?= e(BASE_URL) ?>/index.php">
-          <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="brand-logo">
+          <img src="<?= e(logo_url($pdo)) ?>" alt="<?= e($siteName) ?>" class="brand-logo">
         </a>
         <p class="mt-3 text-light-emphasis small"><?= e(setting($pdo, 'site_tagline')) ?>. We help patients find internationally accredited hospitals and trusted doctors abroad, with transparent pricing and dedicated support at every step.</p>
         <div class="d-flex gap-3 fs-5 social-links">

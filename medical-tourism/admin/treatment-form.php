@@ -46,6 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+$categories = $pdo->query("SELECT name FROM categories ORDER BY name ASC")->fetchAll(PDO::FETCH_COLUMN);
+if ($treatment['category'] !== '' && !in_array($treatment['category'], $categories, true)) {
+    $categories[] = $treatment['category'];
+}
+
 $pageTitle = $id ? 'Edit Treatment' : 'Add Treatment';
 require_once __DIR__ . '/includes/admin_header.php';
 ?>
@@ -59,7 +64,13 @@ require_once __DIR__ . '/includes/admin_header.php';
     </div>
     <div class="col-md-6">
       <label class="form-label small fw-semibold">Category</label>
-      <input type="text" name="category" class="form-control" value="<?= e($treatment['category']) ?>" placeholder="e.g. Dental, Cardiac, Cosmetic" required>
+      <select name="category" class="form-select" required>
+        <option value="">Select a category...</option>
+        <?php foreach ($categories as $catName): ?>
+          <option value="<?= e($catName) ?>" <?= $treatment['category'] === $catName ? 'selected' : '' ?>><?= e($catName) ?></option>
+        <?php endforeach; ?>
+      </select>
+      <div class="form-text">Need a new one? <a href="<?= e(BASE_URL) ?>/admin/categories.php" target="_blank">Manage categories</a>.</div>
     </div>
     <div class="col-12">
       <label class="form-label small fw-semibold">Short Summary</label>

@@ -25,13 +25,17 @@ function nav_active($pages, $current) {
 <div class="d-flex">
   <aside class="admin-sidebar p-3" style="width:260px;flex-shrink:0;">
     <a href="<?= e(BASE_URL) ?>/admin/index.php" class="d-inline-block text-decoration-none mb-4 px-2">
-      <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="brand-logo">
+      <img src="<?= e(logo_url($pdo)) ?>" alt="<?= e($siteName) ?>" class="brand-logo">
     </a>
     <nav class="nav flex-column gap-1">
       <a class="<?= nav_active('index.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/index.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
       <a class="<?= nav_active('leads.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/leads.php"><i class="bi bi-inbox-fill me-2"></i>Leads / Enquiries</a>
       <hr class="my-2">
+      <a class="<?= nav_active('home-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/home-page.php"><i class="bi bi-house-heart-fill me-2"></i>Home Page</a>
+      <a class="<?= nav_active('about-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/about-page.php"><i class="bi bi-info-circle-fill me-2"></i>About Page</a>
+      <hr class="my-2">
       <a class="<?= nav_active('treatments.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/treatments.php"><i class="bi bi-clipboard2-pulse me-2"></i>Treatments</a>
+      <a class="<?= nav_active('categories.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/categories.php"><i class="bi bi-tags-fill me-2"></i>Categories</a>
       <a class="<?= nav_active('destinations.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/destinations.php"><i class="bi bi-globe-americas me-2"></i>Destinations</a>
       <a class="<?= nav_active('hospitals.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/hospitals.php"><i class="bi bi-hospital-fill me-2"></i>Hospitals</a>
       <a class="<?= nav_active('doctors.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/doctors.php"><i class="bi bi-person-badge-fill me-2"></i>Doctors</a>

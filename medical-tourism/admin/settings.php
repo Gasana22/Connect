@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/includes/auth.php';
 
-$fields = ['site_name', 'site_tagline', 'site_phone', 'site_whatsapp', 'site_email', 'site_address', 'facebook_url', 'instagram_url', 'youtube_url', 'about_content'];
+$fields = ['site_name', 'site_tagline', 'site_phone', 'site_whatsapp', 'site_email', 'site_address', 'facebook_url', 'instagram_url', 'youtube_url'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -10,6 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($fields as $field) {
         $stmt->execute([$field, trim($_POST[$field] ?? '')]);
     }
+
+    $logo = handle_image_upload('site_logo', __DIR__ . '/../uploads/settings', setting($pdo, 'site_logo'));
+    $stmt->execute(['site_logo', $logo]);
+
     flash_set('success', 'Settings updated successfully.');
     redirect(BASE_URL . '/admin/settings.php');
 }
@@ -23,9 +27,9 @@ $pageTitle = 'Site Settings';
 require_once __DIR__ . '/includes/admin_header.php';
 ?>
 
-<form method="post" class="stat-card bg-white p-4">
+<form method="post" enctype="multipart/form-data" class="stat-card bg-white p-4">
   <?= csrf_field() ?>
-  <h6 class="fw-heading mb-3">General</h6>
+  <h6 class="fw-heading mb-3">Branding</h6>
   <div class="row g-3 mb-4">
     <div class="col-md-6">
       <label class="form-label small fw-semibold">Site Name</label>
@@ -36,10 +40,13 @@ require_once __DIR__ . '/includes/admin_header.php';
       <input type="text" name="site_tagline" class="form-control" value="<?= e($current['site_tagline']) ?>">
     </div>
     <div class="col-12">
-      <label class="form-label small fw-semibold">About Us Content</label>
-      <textarea name="about_content" rows="4" class="form-control"><?= e($current['about_content']) ?></textarea>
+      <label class="form-label small fw-semibold">Logo</label>
+      <input type="file" name="site_logo" class="form-control" accept="image/*" data-preview="#logoPreview">
+      <div class="form-text">Shown in the header, footer, admin sidebar and login screen. Leave blank to keep the current logo.</div>
+      <img id="logoPreview" src="<?= e(img_url('settings', $current['site_logo'] ?: null)) ?>" class="mt-2 <?= $current['site_logo'] ? '' : 'd-none' ?>" style="height:52px;">
     </div>
   </div>
+  <p class="text-muted small">Homepage hero content lives under <a href="<?= e(BASE_URL) ?>/admin/home-page.php">Home Page</a>, and the About page content lives under <a href="<?= e(BASE_URL) ?>/admin/about-page.php">About Page</a>.</p>
 
   <h6 class="fw-heading mb-3">Contact Details</h6>
   <div class="row g-3 mb-4">

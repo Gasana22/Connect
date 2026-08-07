@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/includes/auth.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$package = ['treatment_id' => '', 'hospital_id' => '', 'title' => '', 'summary' => '', 'description' => '', 'includes' => '', 'image' => '', 'price' => '', 'duration' => '', 'featured' => 0, 'status' => 'published'];
+$package = ['treatment_id' => '', 'hospital_id' => '', 'title' => '', 'summary' => '', 'description' => '', 'includes' => '', 'excludes' => '', 'image' => '', 'price' => '', 'duration' => '', 'featured' => 0, 'status' => 'published'];
 
 if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM packages WHERE id = ?");
@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $summary = trim($_POST['summary'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $includesText = trim($_POST['includes'] ?? '');
+    $excludesText = trim($_POST['excludes'] ?? '');
     $price = $_POST['price'] !== '' ? (float)$_POST['price'] : 0;
     $duration = trim($_POST['duration'] ?? '');
     $featured = isset($_POST['featured']) ? 1 : 0;
@@ -36,11 +37,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $slug = unique_slug($pdo, 'packages', $title, $id ?: null);
 
         if ($id) {
-            $stmt = $pdo->prepare("UPDATE packages SET treatment_id=?, hospital_id=?, title=?, slug=?, summary=?, description=?, includes=?, image=?, price=?, duration=?, featured=?, status=? WHERE id=?");
-            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $image, $price, $duration, $featured, $status, $id]);
+            $stmt = $pdo->prepare("UPDATE packages SET treatment_id=?, hospital_id=?, title=?, slug=?, summary=?, description=?, includes=?, excludes=?, image=?, price=?, duration=?, featured=?, status=? WHERE id=?");
+            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $excludesText, $image, $price, $duration, $featured, $status, $id]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, image, price, duration, featured, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $image, $price, $duration, $featured, $status]);
+            $stmt = $pdo->prepare("INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, excludes, image, price, duration, featured, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $excludesText, $image, $price, $duration, $featured, $status]);
         }
         flash_set('success', 'Package saved successfully.');
         redirect(BASE_URL . '/admin/packages.php');
@@ -95,9 +96,13 @@ require_once __DIR__ . '/includes/admin_header.php';
       <label class="form-label small fw-semibold">Full Description</label>
       <textarea name="description" rows="4" class="form-control"><?= e($package['description']) ?></textarea>
     </div>
-    <div class="col-12">
+    <div class="col-md-6">
       <label class="form-label small fw-semibold">What's Included (one item per line)</label>
       <textarea name="includes" rows="5" class="form-control" placeholder="Hotel (4 nights)&#10;Airport transfers&#10;Surgery + follow-up"><?= e($package['includes']) ?></textarea>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label small fw-semibold">What's Excluded (one item per line)</label>
+      <textarea name="excludes" rows="5" class="form-control" placeholder="International flights&#10;Travel insurance&#10;Meals outside of hotel breakfast"><?= e($package['excludes']) ?></textarea>
     </div>
     <div class="col-md-6">
       <label class="form-label small fw-semibold">Status</label>

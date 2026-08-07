@@ -50,7 +50,30 @@ INSERT INTO destinations (name, slug, summary, description, image, avg_savings) 
 ('Malaysia', 'malaysia', 'Affordable, high-quality healthcare with excellent English proficiency.', 'Malaysia offers JCI-accredited hospitals in Kuala Lumpur and Penang, known for cardiology, fertility and health screening packages.', 'malaysia.jpg', 'Up to 65%');
 
 -- ---------------------------------------------------------------------
--- Treatment categories / treatments
+-- Homepage hero slider images (managed from Admin > Home Page)
+-- ---------------------------------------------------------------------
+CREATE TABLE hero_slides (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image VARCHAR(255) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    status ENUM('published','draft') NOT NULL DEFAULT 'published',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+-- ---------------------------------------------------------------------
+-- Treatment categories (managed from Admin > Categories)
+-- ---------------------------------------------------------------------
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(80) NOT NULL UNIQUE,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+INSERT INTO categories (name) VALUES
+('Dental'), ('Cosmetic'), ('Orthopedic'), ('Cardiac'), ('Fertility'), ('Bariatric'), ('Ophthalmology');
+
+-- ---------------------------------------------------------------------
+-- Treatments
 -- ---------------------------------------------------------------------
 CREATE TABLE treatments (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -145,6 +168,7 @@ CREATE TABLE packages (
     summary VARCHAR(255) NULL,
     description TEXT NULL,
     includes TEXT NULL,
+    excludes TEXT NULL,
     image VARCHAR(255) NULL,
     price DECIMAL(10,2) NOT NULL,
     duration VARCHAR(50) NULL,
@@ -155,13 +179,13 @@ CREATE TABLE packages (
     CONSTRAINT fk_package_hospital FOREIGN KEY (hospital_id) REFERENCES hospitals(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, image, price, duration, featured) VALUES
-(2, 1, 'Complete FUE Hair Transplant Package - Istanbul', 'complete-fue-hair-transplant-istanbul', 'All-inclusive hair transplant with hotel stay and VIP transfer.', 'A full-service hair restoration journey combining a premium FUE procedure with a comfortable stay in Istanbul.', '5-star hotel (4 nights)\nVIP airport transfers\nSurgery + PRP session\nMedication kit\nAftercare follow-up', 'package-hair.jpg', 1899.00, '4 days / 3 nights', 1),
-(1, 1, 'All-on-4 Dental Implants Package', 'all-on-4-dental-implants-package', 'Full-arch restoration with premium implant brand.', 'Complete smile restoration using the All-on-4 technique, including all surgical and prosthetic stages.', 'Consultation & 3D scan\nImplant surgery (upper or lower arch)\nTemporary + final prosthesis\nHotel (5 nights)\nAirport transfers', 'package-dental.jpg', 5200.00, '6 days / 5 nights', 1),
-(5, 3, 'Cardiac Bypass Surgery Package - Delhi', 'cardiac-bypass-surgery-package-delhi', 'Comprehensive CABG package with top cardiac surgeons.', 'A complete cardiac care journey including surgery, ICU stay and rehabilitation planning.', 'Pre-op cardiac work-up\nCABG surgery\nICU + ward stay (10 nights)\nCardiac rehab consultation\nAirport pickup', 'package-cardiac.jpg', 9800.00, '14 days', 1),
-(7, 4, 'Gastric Sleeve Weight Loss Package', 'gastric-sleeve-weight-loss-package', 'Laparoscopic sleeve surgery with post-op nutrition plan.', 'A supportive bariatric surgery package designed for a safe, comfortable recovery close to Cancun beaches.', 'Pre-op labs & consultation\nLaparoscopic sleeve gastrectomy\nHospital stay (2 nights)\nHotel recovery stay (3 nights)\n12-month nutrition plan', 'package-bariatric.jpg', 4500.00, '5 days / 4 nights', 1),
-(3, 5, 'Rhinoplasty & Recovery Retreat - Seoul', 'rhinoplasty-recovery-retreat-seoul', 'Precision rhinoplasty with a relaxing Seoul recovery stay.', 'Combines expert rhinoplasty with a comfortable boutique hotel recovery stay in Gangnam.', 'Consultation & 3D simulation\nRhinoplasty surgery\nBoutique hotel (5 nights)\n2 follow-up visits', 'package-rhino.jpg', 3400.00, '6 days / 5 nights', 0),
-(6, 6, 'IVF Treatment Package - Kuala Lumpur', 'ivf-treatment-package-kuala-lumpur', 'Full IVF cycle with genetic screening add-on options.', 'A complete IVF journey with a dedicated fertility coordinator supporting patients throughout their stay.', 'Ovarian stimulation & monitoring\nEgg retrieval & ICSI\nEmbryo transfer\nHotel (10 nights)\nDedicated coordinator', 'package-ivf.jpg', 5600.00, '2-3 weeks', 0);
+INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, excludes, image, price, duration, featured) VALUES
+(2, 1, 'Complete FUE Hair Transplant Package - Istanbul', 'complete-fue-hair-transplant-istanbul', 'All-inclusive hair transplant with hotel stay and VIP transfer.', 'A full-service hair restoration journey combining a premium FUE procedure with a comfortable stay in Istanbul.', '5-star hotel (4 nights)\nVIP airport transfers\nSurgery + PRP session\nMedication kit\nAftercare follow-up', 'International flights\nMeals outside of hotel breakfast\nTravel insurance\nAdditional PRP sessions beyond the first', 'package-hair.jpg', 1899.00, '4 days / 3 nights', 1),
+(1, 1, 'All-on-4 Dental Implants Package', 'all-on-4-dental-implants-package', 'Full-arch restoration with premium implant brand.', 'Complete smile restoration using the All-on-4 technique, including all surgical and prosthetic stages.', 'Consultation & 3D scan\nImplant surgery (upper or lower arch)\nTemporary + final prosthesis\nHotel (5 nights)\nAirport transfers', 'International flights\nOpposite-arch treatment (if needed)\nTravel insurance\nMeals outside of hotel breakfast', 'package-dental.jpg', 5200.00, '6 days / 5 nights', 1),
+(5, 3, 'Cardiac Bypass Surgery Package - Delhi', 'cardiac-bypass-surgery-package-delhi', 'Comprehensive CABG package with top cardiac surgeons.', 'A complete cardiac care journey including surgery, ICU stay and rehabilitation planning.', 'Pre-op cardiac work-up\nCABG surgery\nICU + ward stay (10 nights)\nCardiac rehab consultation\nAirport pickup', 'International flights\nExtended ICU stay beyond 3 nights\nTravel insurance\nCompanion accommodation', 'package-cardiac.jpg', 9800.00, '14 days', 1),
+(7, 4, 'Gastric Sleeve Weight Loss Package', 'gastric-sleeve-weight-loss-package', 'Laparoscopic sleeve surgery with post-op nutrition plan.', 'A supportive bariatric surgery package designed for a safe, comfortable recovery close to Cancun beaches.', 'Pre-op labs & consultation\nLaparoscopic sleeve gastrectomy\nHospital stay (2 nights)\nHotel recovery stay (3 nights)\n12-month nutrition plan', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nSupplements after the first month', 'package-bariatric.jpg', 4500.00, '5 days / 4 nights', 1),
+(3, 5, 'Rhinoplasty & Recovery Retreat - Seoul', 'rhinoplasty-recovery-retreat-seoul', 'Precision rhinoplasty with a relaxing Seoul recovery stay.', 'Combines expert rhinoplasty with a comfortable boutique hotel recovery stay in Gangnam.', 'Consultation & 3D simulation\nRhinoplasty surgery\nBoutique hotel (5 nights)\n2 follow-up visits', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nRevision surgery', 'package-rhino.jpg', 3400.00, '6 days / 5 nights', 0),
+(6, 6, 'IVF Treatment Package - Kuala Lumpur', 'ivf-treatment-package-kuala-lumpur', 'Full IVF cycle with genetic screening add-on options.', 'A complete IVF journey with a dedicated fertility coordinator supporting patients throughout their stay.', 'Ovarian stimulation & monitoring\nEgg retrieval & ICSI\nEmbryo transfer\nHotel (10 nights)\nDedicated coordinator', 'International flights\nGenetic screening (PGT-A)\nTravel insurance\nMedications beyond the standard protocol', 'package-ivf.jpg', 5600.00, '2-3 weeks', 0);
 
 -- ---------------------------------------------------------------------
 -- Blog posts
@@ -247,4 +271,19 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('facebook_url', 'https://facebook.com/'),
 ('instagram_url', 'https://instagram.com/'),
 ('youtube_url', 'https://youtube.com/'),
-('about_content', "Let's Go Medical connects patients from around the world with internationally accredited hospitals and specialist doctors, offering transparent pricing and dedicated patient coordinators from your first enquiry through to recovery at home.");
+('site_logo', ''),
+('nav_cta_text', 'Get Free Quote'),
+('hero_badge_text', 'Trusted by 12,000+ patients worldwide'),
+('hero_heading', 'Quality healthcare abroad, without the guesswork.'),
+('hero_subtext', 'Compare accredited hospitals, specialist doctors and all-inclusive treatment packages. Get a free personalized quote in under 24 hours.'),
+('hero_primary_btn_text', 'Get My Free Quote'),
+('hero_secondary_btn_text', 'Browse Treatments'),
+('about_badge_text', 'Our Story'),
+('about_heading', 'Making Global Healthcare Simple & Transparent'),
+('about_content', "Let's Go Medical connects patients from around the world with internationally accredited hospitals and specialist doctors, offering transparent pricing and dedicated patient coordinators from your first enquiry through to recovery at home."),
+('about_content_2', 'We partner exclusively with internationally accredited hospitals and experienced specialists, and every quote we provide includes clear, upfront pricing so there are no surprises when you travel.'),
+('about_stat_number', '12k+'),
+('about_stat_label', 'Patients Helped'),
+('mission_text', 'To connect every patient with safe, affordable, world-class healthcare, wherever they are in the world.'),
+('vision_text', 'A world where distance and cost are never barriers to receiving excellent medical care.'),
+('values_text', 'Transparency, patient safety and genuine care guide every recommendation we make.');
