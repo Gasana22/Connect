@@ -33,7 +33,7 @@ require_once __DIR__ . '/includes/admin_header.php';
           <td><img src="<?= e(img_url('treatments', $t['image'])) ?>" class="thumb-sm"></td>
           <td><?= e($t['name']) ?></td>
           <td><?= e($t['category']) ?></td>
-          <td><?= format_price($t['min_price']) ?> - <?= format_price($t['max_price']) ?></td>
+          <td><?= format_price($t['min_price']) ?> - <?= format_price($t['max_price']) ?><?= $t['show_price'] ? '' : ' <span class="badge bg-secondary">Hidden on site</span>' ?></td>
           <td><?= $t['featured'] ? '<span class="badge bg-warning">Featured</span>' : '' ?></td>
           <td><span class="badge bg-<?= $t['status'] === 'published' ? 'success' : 'secondary' ?>"><?= e(ucfirst($t['status'])) ?></span></td>
           <td class="text-end">

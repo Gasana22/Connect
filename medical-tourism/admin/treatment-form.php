@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/includes/auth.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$treatment = ['name' => '', 'category' => '', 'summary' => '', 'description' => '', 'image' => '', 'min_price' => '', 'max_price' => '', 'avg_duration' => '', 'featured' => 0, 'status' => 'published'];
+$treatment = ['name' => '', 'category' => '', 'summary' => '', 'description' => '', 'image' => '', 'min_price' => '', 'max_price' => '', 'avg_duration' => '', 'featured' => 0, 'show_price' => 1, 'status' => 'published'];
 
 if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM treatments WHERE id = ?");
@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $maxPrice = $_POST['max_price'] !== '' ? (float)$_POST['max_price'] : null;
     $avgDuration = trim($_POST['avg_duration'] ?? '');
     $featured = isset($_POST['featured']) ? 1 : 0;
+    $showPrice = isset($_POST['show_price']) ? 1 : 0;
     $status = $_POST['status'] === 'draft' ? 'draft' : 'published';
 
     if ($name === '' || $category === '') {
@@ -35,11 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $slug = unique_slug($pdo, 'treatments', $name, $id ?: null);
 
         if ($id) {
-            $stmt = $pdo->prepare("UPDATE treatments SET name=?, slug=?, category=?, summary=?, description=?, image=?, min_price=?, max_price=?, avg_duration=?, featured=?, status=? WHERE id=?");
-            $stmt->execute([$name, $slug, $category, $summary, $description, $image, $minPrice, $maxPrice, $avgDuration, $featured, $status, $id]);
+            $stmt = $pdo->prepare("UPDATE treatments SET name=?, slug=?, category=?, summary=?, description=?, image=?, min_price=?, max_price=?, avg_duration=?, featured=?, show_price=?, status=? WHERE id=?");
+            $stmt->execute([$name, $slug, $category, $summary, $description, $image, $minPrice, $maxPrice, $avgDuration, $featured, $showPrice, $status, $id]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO treatments (name, slug, category, summary, description, image, min_price, max_price, avg_duration, featured, status) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->execute([$name, $slug, $category, $summary, $description, $image, $minPrice, $maxPrice, $avgDuration, $featured, $status]);
+            $stmt = $pdo->prepare("INSERT INTO treatments (name, slug, category, summary, description, image, min_price, max_price, avg_duration, featured, show_price, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->execute([$name, $slug, $category, $summary, $description, $image, $minPrice, $maxPrice, $avgDuration, $featured, $showPrice, $status]);
         }
         flash_set('success', 'Treatment saved successfully.');
         redirect(BASE_URL . '/admin/treatments.php');
@@ -103,6 +104,11 @@ require_once __DIR__ . '/includes/admin_header.php';
       <div class="form-check">
         <input type="checkbox" name="featured" class="form-check-input" id="featured" <?= $treatment['featured'] ? 'checked' : '' ?>>
         <label class="form-check-label" for="featured">Show as featured treatment on homepage</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="show_price" class="form-check-input" id="show_price" <?= $treatment['show_price'] ? 'checked' : '' ?>>
+        <label class="form-check-label" for="show_price">Show price on the website</label>
+        <div class="form-text">Uncheck to display "Contact for price" instead of the actual amount.</div>
       </div>
     </div>
     <div class="col-12">

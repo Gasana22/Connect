@@ -84,7 +84,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="card-body">
                 <span class="badge-category"><?= e($p['treatment_name']) ?></span>
                 <h6 class="mt-2"><a href="<?= e(BASE_URL) ?>/package-detail.php?slug=<?= e($p['slug']) ?>" class="text-dark stretched-link"><?= e($p['title']) ?></a></h6>
-                <div class="price-tag"><?= format_price($p['price']) ?></div>
+                <div class="price-tag"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
               </div>
             </div>
           </div>

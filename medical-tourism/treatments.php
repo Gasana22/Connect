@@ -81,7 +81,7 @@ require_once __DIR__ . '/includes/header.php';
                 <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/treatment-detail.php?slug=<?= e($t['slug']) ?>" class="text-dark stretched-link"><?= e($t['name']) ?></a></h5>
                 <p class="text-muted small mb-2"><?= e($t['summary']) ?></p>
                 <div class="d-flex justify-content-between align-items-center">
-                  <div class="price-tag">From <?= format_price($t['min_price']) ?></div>
+                  <div class="price-tag"><?= price_or_contact($t['show_price'], 'From ' . format_price($t['min_price'])) ?></div>
                   <span class="text-muted small"><?= e($t['avg_duration']) ?></span>
                 </div>
               </div>

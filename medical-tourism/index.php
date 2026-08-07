@@ -121,7 +121,7 @@ require_once __DIR__ . '/includes/header.php';
               <span class="badge-category"><?= e($t['category']) ?></span>
               <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/treatment-detail.php?slug=<?= e($t['slug']) ?>" class="text-dark stretched-link"><?= e($t['name']) ?></a></h5>
               <p class="text-muted small mb-2"><?= e($t['summary']) ?></p>
-              <div class="price-tag">From <?= format_price($t['min_price']) ?></div>
+              <div class="price-tag"><?= price_or_contact($t['show_price'], 'From ' . format_price($t['min_price'])) ?></div>
             </div>
           </div>
         </div>
@@ -212,7 +212,7 @@ require_once __DIR__ . '/includes/header.php';
               <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/package-detail.php?slug=<?= e($p['slug']) ?>" class="text-dark stretched-link"><?= e($p['title']) ?></a></h5>
               <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= e($p['hospital_name']) ?>, <?= e($p['destination_name']) ?></p>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="price-tag"><?= format_price($p['price']) ?></div>
+                <div class="price-tag"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
                 <span class="text-muted small"><?= e($p['duration']) ?></span>
               </div>
             </div>

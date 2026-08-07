@@ -70,7 +70,7 @@ require_once __DIR__ . '/includes/header.php';
               <div class="card-body">
                 <h6><a href="<?= e(BASE_URL) ?>/package-detail.php?slug=<?= e($p['slug']) ?>" class="text-dark stretched-link"><?= e($p['title']) ?></a></h6>
                 <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= e($p['hospital_name']) ?>, <?= e($p['destination_name']) ?></p>
-                <div class="price-tag"><?= format_price($p['price']) ?></div>
+                <div class="price-tag"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="col-lg-4">
       <div class="card shadow-card p-4 sticky-top" style="top: 90px;">
         <h5 class="fw-heading">Price Range</h5>
-        <div class="price-tag fs-3"><?= format_price($treatment['min_price']) ?> - <?= format_price($treatment['max_price']) ?></div>
+        <div class="price-tag fs-3"><?= price_or_contact($treatment['show_price'], format_price($treatment['min_price']) . ' - ' . format_price($treatment['max_price'])) ?></div>
         <p class="text-muted small">Average duration: <?= e($treatment['avg_duration']) ?></p>
         <hr>
         <a href="<?= e(BASE_URL) ?>/quote.php?treatment=<?= e($treatment['slug']) ?>" class="btn btn-primary rounded-pill w-100 mb-2">Get Free Quote</a>
@@ -112,7 +112,7 @@ require_once __DIR__ . '/includes/header.php';
             <img src="<?= e(img_url('treatments', $rt['image'])) ?>" class="thumb-sm" alt="<?= e($rt['name']) ?>">
             <div>
               <div class="fw-semibold small"><?= e($rt['name']) ?></div>
-              <div class="text-muted small">From <?= format_price($rt['min_price']) ?></div>
+              <div class="text-muted small"><?= price_or_contact($rt['show_price'], 'From ' . format_price($rt['min_price'])) ?></div>
             </div>
           </a>
         <?php endforeach; ?>

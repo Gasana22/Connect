@@ -63,7 +63,7 @@ require_once __DIR__ . '/includes/header.php';
           <div class="card-body">
             <span class="badge-category"><?= e($t['category']) ?></span>
             <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/treatment-detail.php?slug=<?= e($t['slug']) ?>" class="text-dark stretched-link"><?= e($t['name']) ?></a></h5>
-            <div class="price-tag">From <?= format_price($t['min_price']) ?></div>
+            <div class="price-tag"><?= price_or_contact($t['show_price'], 'From ' . format_price($t['min_price'])) ?></div>
           </div>
         </div>
       </div>

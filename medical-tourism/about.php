@@ -4,6 +4,7 @@ require_once __DIR__ . '/includes/init.php';
 $hospitalCount = (int)$pdo->query("SELECT COUNT(*) c FROM hospitals WHERE status='published'")->fetch()['c'];
 $destinationCount = (int)$pdo->query("SELECT COUNT(*) c FROM destinations WHERE status='published'")->fetch()['c'];
 $doctorCount = (int)$pdo->query("SELECT COUNT(*) c FROM doctors WHERE status='published'")->fetch()['c'];
+$partners = $pdo->query("SELECT * FROM partners WHERE status = 'published' ORDER BY sort_order ASC, name ASC")->fetchAll();
 
 $pageTitle = 'About Us';
 $pageDescription = 'Learn about our mission to make quality healthcare abroad accessible and transparent.';
@@ -73,6 +74,20 @@ require_once __DIR__ . '/includes/header.php';
       <p class="text-muted small"><?= e(setting($pdo, 'values_text')) ?></p>
     </div>
   </div>
+
+  <?php if ($partners): ?>
+  <div class="mt-5 pt-4 text-center">
+    <span class="section-title-badge">Our Partners</span>
+    <h2 class="mt-3 mb-4 fw-heading">Organizations We Work With</h2>
+    <div class="d-flex flex-wrap justify-content-center align-items-center gap-4">
+      <?php foreach ($partners as $partner): ?>
+        <?php if ($partner['website_url']): ?><a href="<?= e($partner['website_url']) ?>" target="_blank" rel="noopener nofollow" title="<?= e($partner['name']) ?>"><?php endif; ?>
+          <img src="<?= e(img_url('partners', $partner['logo'])) ?>" alt="<?= e($partner['name']) ?>" class="partner-logo">
+        <?php if ($partner['website_url']): ?></a><?php endif; ?>
+      <?php endforeach; ?>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <div class="cta-banner p-5 text-center mt-5">
     <h2 class="fw-heading">Have questions about your treatment options?</h2>

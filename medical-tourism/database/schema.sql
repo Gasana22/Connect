@@ -87,6 +87,7 @@ CREATE TABLE treatments (
     max_price DECIMAL(10,2) NULL,
     avg_duration VARCHAR(50) NULL,
     featured TINYINT(1) NOT NULL DEFAULT 0,
+    show_price TINYINT(1) NOT NULL DEFAULT 1,
     status ENUM('published','draft') NOT NULL DEFAULT 'published',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
@@ -173,6 +174,7 @@ CREATE TABLE packages (
     price DECIMAL(10,2) NOT NULL,
     duration VARCHAR(50) NULL,
     featured TINYINT(1) NOT NULL DEFAULT 0,
+    show_price TINYINT(1) NOT NULL DEFAULT 1,
     status ENUM('published','draft') NOT NULL DEFAULT 'published',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_package_treatment FOREIGN KEY (treatment_id) REFERENCES treatments(id) ON DELETE CASCADE,
@@ -252,6 +254,19 @@ CREATE TABLE leads (
 INSERT INTO leads (full_name, email, phone, country, treatment_id, message, source, status) VALUES
 ('Anna Kowalski', 'anna.k@example.com', '+48 600 111 222', 'Poland', 2, 'Hello, I would like a quote for a hair transplant in Istanbul for late August.', 'quote_form', 'new'),
 ('David Owusu', 'david.owusu@example.com', '+233 24 555 0199', 'Ghana', 5, 'Looking for information on cardiac bypass surgery packages for my father.', 'contact_form', 'contacted');
+
+-- ---------------------------------------------------------------------
+-- Partners (shown as a logo strip on the About page)
+-- ---------------------------------------------------------------------
+CREATE TABLE partners (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    logo VARCHAR(255) NULL,
+    website_url VARCHAR(255) NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    status ENUM('published','draft') NOT NULL DEFAULT 'published',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
 -- Site settings (key/value store)

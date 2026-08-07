@@ -3,7 +3,7 @@ require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/includes/auth.php';
 
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-$package = ['treatment_id' => '', 'hospital_id' => '', 'title' => '', 'summary' => '', 'description' => '', 'includes' => '', 'excludes' => '', 'image' => '', 'price' => '', 'duration' => '', 'featured' => 0, 'status' => 'published'];
+$package = ['treatment_id' => '', 'hospital_id' => '', 'title' => '', 'summary' => '', 'description' => '', 'includes' => '', 'excludes' => '', 'image' => '', 'price' => '', 'duration' => '', 'featured' => 0, 'show_price' => 1, 'status' => 'published'];
 
 if ($id) {
     $stmt = $pdo->prepare("SELECT * FROM packages WHERE id = ?");
@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = $_POST['price'] !== '' ? (float)$_POST['price'] : 0;
     $duration = trim($_POST['duration'] ?? '');
     $featured = isset($_POST['featured']) ? 1 : 0;
+    $showPrice = isset($_POST['show_price']) ? 1 : 0;
     $status = $_POST['status'] === 'draft' ? 'draft' : 'published';
 
     if ($title === '' || !$treatmentId || !$hospitalId) {
@@ -37,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $slug = unique_slug($pdo, 'packages', $title, $id ?: null);
 
         if ($id) {
-            $stmt = $pdo->prepare("UPDATE packages SET treatment_id=?, hospital_id=?, title=?, slug=?, summary=?, description=?, includes=?, excludes=?, image=?, price=?, duration=?, featured=?, status=? WHERE id=?");
-            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $excludesText, $image, $price, $duration, $featured, $status, $id]);
+            $stmt = $pdo->prepare("UPDATE packages SET treatment_id=?, hospital_id=?, title=?, slug=?, summary=?, description=?, includes=?, excludes=?, image=?, price=?, duration=?, featured=?, show_price=?, status=? WHERE id=?");
+            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $excludesText, $image, $price, $duration, $featured, $showPrice, $status, $id]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, excludes, image, price, duration, featured, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
-            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $excludesText, $image, $price, $duration, $featured, $status]);
+            $stmt = $pdo->prepare("INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, excludes, image, price, duration, featured, show_price, status) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            $stmt->execute([$treatmentId, $hospitalId, $title, $slug, $summary, $description, $includesText, $excludesText, $image, $price, $duration, $featured, $showPrice, $status]);
         }
         flash_set('success', 'Package saved successfully.');
         redirect(BASE_URL . '/admin/packages.php');
@@ -111,10 +112,14 @@ require_once __DIR__ . '/includes/admin_header.php';
         <option value="draft" <?= $package['status'] === 'draft' ? 'selected' : '' ?>>Draft</option>
       </select>
     </div>
-    <div class="col-md-6 d-flex align-items-center">
-      <div class="form-check mt-4">
+    <div class="col-md-6 d-flex flex-column justify-content-center">
+      <div class="form-check">
         <input type="checkbox" name="featured" class="form-check-input" id="featured" <?= $package['featured'] ? 'checked' : '' ?>>
         <label class="form-check-label" for="featured">Show as featured package on homepage</label>
+      </div>
+      <div class="form-check">
+        <input type="checkbox" name="show_price" class="form-check-input" id="show_price" <?= $package['show_price'] ? 'checked' : '' ?>>
+        <label class="form-check-label" for="show_price">Show price on the website</label>
       </div>
     </div>
     <div class="col-12">

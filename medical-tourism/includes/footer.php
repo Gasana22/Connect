@@ -40,13 +40,13 @@
           <li><i class="bi bi-telephone-fill me-2"></i><?= e(setting($pdo, 'site_phone')) ?></li>
           <li><i class="bi bi-envelope-fill me-2"></i><?= e(setting($pdo, 'site_email')) ?></li>
         </ul>
-        <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-outline-primary btn-sm rounded-pill mt-2">Request a Free Quote</a>
+        <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-outline-light btn-sm mt-2">Request a Free Quote</a>
       </div>
     </div>
     <hr class="mt-4">
     <div class="d-flex flex-wrap justify-content-between small text-light-emphasis">
       <span>&copy; <?= date('Y') ?> <?= e($siteName) ?>. All rights reserved.</span>
-      <span>Designed for patients, built on trust.</span>
+      <span>Designed &amp; Maintained by: <a href="https://www.afrisap.com" target="_blank" rel="noopener" class="footer-credit-link">afrisap.com</a></span>
     </div>
   </div>
 </footer>

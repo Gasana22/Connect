@@ -86,7 +86,7 @@ require_once __DIR__ . '/includes/header.php';
             <img src="<?= e(img_url('packages', $p['image'])) ?>" class="thumb-sm" alt="<?= e($p['title']) ?>">
             <div>
               <div class="fw-semibold small"><?= e($p['title']) ?></div>
-              <div class="text-muted small"><?= format_price($p['price']) ?></div>
+              <div class="text-muted small"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
             </div>
           </a>
         <?php endforeach; ?>

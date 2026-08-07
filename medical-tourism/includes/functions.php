@@ -46,6 +46,12 @@ function format_price($amount) {
     return '$' . number_format((float)$amount, 0);
 }
 
+// Admins can hide a treatment/package's price; when hidden, show a
+// neutral prompt instead of the formatted amount.
+function price_or_contact($show, $formattedText) {
+    return $show ? $formattedText : 'Contact for price';
+}
+
 function redirect($path) {
     header('Location: ' . $path);
     exit;

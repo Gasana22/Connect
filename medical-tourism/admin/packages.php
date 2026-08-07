@@ -39,7 +39,7 @@ require_once __DIR__ . '/includes/admin_header.php';
           <td><?= e($p['title']) ?></td>
           <td><?= e($p['treatment_name']) ?></td>
           <td><?= e($p['hospital_name']) ?></td>
-          <td><?= format_price($p['price']) ?></td>
+          <td><?= format_price($p['price']) ?><?= $p['show_price'] ? '' : ' <span class="badge bg-secondary">Hidden on site</span>' ?></td>
           <td><?= $p['featured'] ? '<span class="badge bg-warning">Featured</span>' : '' ?></td>
           <td><span class="badge bg-<?= $p['status'] === 'published' ? 'success' : 'secondary' ?>"><?= e(ucfirst($p['status'])) ?></span></td>
           <td class="text-end">

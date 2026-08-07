@@ -97,7 +97,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="col-lg-4">
       <div class="card shadow-card p-4 sticky-top" style="top: 90px;">
         <h5 class="fw-heading">Package Price</h5>
-        <div class="price-tag fs-3"><?= format_price($package['price']) ?></div>
+        <div class="price-tag fs-3"><?= price_or_contact($package['show_price'], format_price($package['price'])) ?></div>
         <p class="text-muted small mb-4">Get a personalized quote for this package.</p>
         <form action="<?= e(BASE_URL) ?>/submit-lead.php" method="post" class="needs-validation" novalidate>
           <?= csrf_field() ?>
