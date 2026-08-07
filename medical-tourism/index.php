@@ -26,19 +26,19 @@ require_once __DIR__ . '/includes/header.php';
   <div class="container position-relative">
     <div class="row align-items-center">
       <div class="col-lg-7">
-        <span class="section-title-badge bg-white bg-opacity-10 text-white">Trusted by 12,000+ patients worldwide</span>
+        <span class="section-title-badge">Trusted by 12,000+ patients worldwide</span>
         <h1 class="mt-3">Quality healthcare abroad, without the guesswork.</h1>
         <p class="lead mt-3">Compare accredited hospitals, specialist doctors and all-inclusive treatment packages. Get a free personalized quote in under 24 hours.</p>
         <div class="d-flex flex-wrap gap-3 mt-4">
           <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-accent btn-lg rounded-pill px-4">Get My Free Quote</a>
-          <a href="<?= e(BASE_URL) ?>/treatments.php" class="btn btn-outline-light btn-lg rounded-pill px-4">Browse Treatments</a>
+          <a href="<?= e(BASE_URL) ?>/treatments.php" class="btn btn-outline-primary btn-lg rounded-pill px-4">Browse Treatments</a>
         </div>
         <div class="row hero-stats mt-5 py-3 mx-0">
           <div class="col-4 text-center">
             <div class="stat-num"><?= $treatmentCount ?>+</div>
             <div class="small">Treatments</div>
           </div>
-          <div class="col-4 text-center border-start border-end border-light border-opacity-25">
+          <div class="col-4 text-center border-start border-end">
             <div class="stat-num"><?= $hospitalCount ?>+</div>
             <div class="small">Partner Hospitals</div>
           </div>

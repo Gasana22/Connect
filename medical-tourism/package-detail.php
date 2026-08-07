@@ -33,7 +33,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="page-header">
   <div class="container">
-    <span class="section-title-badge bg-white bg-opacity-10 text-white"><?= e($package['treatment_name']) ?></span>
+    <span class="section-title-badge"><?= e($package['treatment_name']) ?></span>
     <h1 class="mt-3"><?= e($package['title']) ?></h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <a href="<?= e(BASE_URL) ?>/packages.php">Packages</a> / <span class="active"><?= e($package['title']) ?></span></nav>
   </div>

@@ -28,9 +28,9 @@ $flash = flash_get();
       <span><i class="bi bi-envelope-fill me-1"></i><?= e(setting($pdo, 'site_email')) ?></span>
     </div>
     <div class="d-flex gap-3 ms-auto">
-      <a href="<?= e(setting($pdo, 'facebook_url', '#')) ?>" class="text-white"><i class="bi bi-facebook"></i></a>
-      <a href="<?= e(setting($pdo, 'instagram_url', '#')) ?>" class="text-white"><i class="bi bi-instagram"></i></a>
-      <a href="<?= e(setting($pdo, 'youtube_url', '#')) ?>" class="text-white"><i class="bi bi-youtube"></i></a>
+      <a href="<?= e(setting($pdo, 'facebook_url', '#')) ?>"><i class="bi bi-facebook"></i></a>
+      <a href="<?= e(setting($pdo, 'instagram_url', '#')) ?>"><i class="bi bi-instagram"></i></a>
+      <a href="<?= e(setting($pdo, 'youtube_url', '#')) ?>"><i class="bi bi-youtube"></i></a>
     </div>
   </div>
 </div>
@@ -48,7 +48,6 @@ $flash = flash_get();
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'index.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/index.php">Home</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['treatments.php','treatment-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/treatments.php">Treatments</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['destinations.php','destination-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/destinations.php">Destinations</a></li>
-        <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['hospitals.php','hospital-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/hospitals.php">Hospitals</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['packages.php','package-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/packages.php">Packages</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['blog.php','blog-post.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/blog.php">Blog</a></li>
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'about.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/about.php">About</a></li>

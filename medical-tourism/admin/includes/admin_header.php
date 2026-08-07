@@ -24,22 +24,22 @@ function nav_active($pages, $current) {
 <body class="bg-brand-light">
 <div class="d-flex">
   <aside class="admin-sidebar p-3" style="width:260px;flex-shrink:0;">
-    <a href="<?= e(BASE_URL) ?>/admin/index.php" class="logo-badge text-decoration-none mb-4">
+    <a href="<?= e(BASE_URL) ?>/admin/index.php" class="d-inline-block text-decoration-none mb-4 px-2">
       <img src="<?= e(BASE_URL) ?>/assets/img/logo.svg" alt="<?= e($siteName) ?>" class="brand-logo">
     </a>
     <nav class="nav flex-column gap-1">
       <a class="<?= nav_active('index.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/index.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
       <a class="<?= nav_active('leads.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/leads.php"><i class="bi bi-inbox-fill me-2"></i>Leads / Enquiries</a>
-      <hr class="border-secondary my-2">
+      <hr class="my-2">
       <a class="<?= nav_active('treatments.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/treatments.php"><i class="bi bi-clipboard2-pulse me-2"></i>Treatments</a>
       <a class="<?= nav_active('destinations.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/destinations.php"><i class="bi bi-globe-americas me-2"></i>Destinations</a>
       <a class="<?= nav_active('hospitals.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/hospitals.php"><i class="bi bi-hospital-fill me-2"></i>Hospitals</a>
       <a class="<?= nav_active('doctors.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/doctors.php"><i class="bi bi-person-badge-fill me-2"></i>Doctors</a>
       <a class="<?= nav_active('packages.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/packages.php"><i class="bi bi-box-seam-fill me-2"></i>Packages</a>
-      <hr class="border-secondary my-2">
+      <hr class="my-2">
       <a class="<?= nav_active('blog.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/blog.php"><i class="bi bi-newspaper me-2"></i>Blog Posts</a>
       <a class="<?= nav_active('testimonials.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/testimonials.php"><i class="bi bi-chat-quote-fill me-2"></i>Testimonials</a>
-      <hr class="border-secondary my-2">
+      <hr class="my-2">
       <a class="<?= nav_active('settings.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/settings.php"><i class="bi bi-gear-fill me-2"></i>Site Settings</a>
       <?php if (($_SESSION['admin_role'] ?? '') === 'super_admin'): ?>
       <a class="<?= nav_active('admin-users.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/admin-users.php"><i class="bi bi-people-fill me-2"></i>Admin Users</a>

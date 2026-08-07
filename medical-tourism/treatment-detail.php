@@ -45,7 +45,7 @@ require_once __DIR__ . '/includes/header.php';
 
 <div class="page-header">
   <div class="container">
-    <span class="section-title-badge bg-white bg-opacity-10 text-white"><?= e($treatment['category']) ?></span>
+    <span class="section-title-badge"><?= e($treatment['category']) ?></span>
     <h1 class="mt-3"><?= e($treatment['name']) ?></h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <a href="<?= e(BASE_URL) ?>/treatments.php">Treatments</a> / <span class="active"><?= e($treatment['name']) ?></span></nav>
   </div>

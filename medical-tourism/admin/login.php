@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="<?= e(BASE_URL) ?>/assets/css/style.css" rel="stylesheet">
 </head>
-<body class="bg-navy d-flex align-items-center" style="min-height:100vh;">
+<body class="bg-brand-light d-flex align-items-center" style="min-height:100vh;">
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-5">
