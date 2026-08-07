@@ -9,10 +9,11 @@ $posts = $stmt->fetchAll();
 
 $pageTitle = 'Blog';
 $pageDescription = 'Guides and articles to help you plan your medical travel journey with confidence.';
+$ph = page_header_banner($pdo, 'blog_banner');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="page-header">
+<div class="<?= e($ph['class']) ?>" style="<?= e($ph['style']) ?>">
   <div class="container">
     <h1>Patient Resources &amp; Blog</h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">Blog</span></nav>

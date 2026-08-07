@@ -22,6 +22,7 @@ $current = [];
 foreach ($fields as $field) {
     $current[$field] = setting($pdo, $field);
 }
+$current['site_logo'] = setting($pdo, 'site_logo');
 
 $pageTitle = 'Site Settings';
 require_once __DIR__ . '/includes/admin_header.php';

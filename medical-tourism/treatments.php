@@ -30,10 +30,11 @@ $categories = $pdo->query("SELECT DISTINCT category FROM treatments WHERE status
 
 $pageTitle = 'Treatments';
 $pageDescription = 'Browse treatments and procedures available abroad with transparent pricing.';
+$ph = page_header_banner($pdo, 'treatments_banner');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="page-header">
+<div class="<?= e($ph['class']) ?>" style="<?= e($ph['style']) ?>">
   <div class="container">
     <h1>Treatments &amp; Procedures</h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">Treatments</span></nav>

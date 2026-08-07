@@ -197,6 +197,24 @@ function logo_url($pdo) {
     return BASE_URL . '/assets/img/logo.svg';
 }
 
+// ---------------------------------------------------------------------
+// Build the class + inline background-image style for a page-header band
+// that has an admin-uploaded banner photo. Returns a plain gradient band
+// (no photo) when the given setting has no image on disk.
+// ---------------------------------------------------------------------
+function page_header_banner(PDO $pdo, $settingKey) {
+    $banner = setting($pdo, $settingKey);
+    if ($banner) {
+        $diskPath = __DIR__ . '/../uploads/banners/' . $banner;
+        if (is_file($diskPath)) {
+            $url = BASE_URL . '/uploads/banners/' . rawurlencode($banner);
+            $style = "background-image: linear-gradient(90deg, rgba(15,8,32,.62) 0%, rgba(15,8,32,.4) 45%, rgba(15,8,32,.15) 75%, rgba(15,8,32,.05) 100%), url('" . $url . "');";
+            return ['class' => 'page-header has-banner', 'style' => $style];
+        }
+    }
+    return ['class' => 'page-header', 'style' => ''];
+}
+
 function star_rating($rating) {
     $rating = max(0, min(5, (int)$rating));
     $html = '';

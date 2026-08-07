@@ -3,10 +3,11 @@ require_once __DIR__ . '/includes/init.php';
 
 $pageTitle = 'Contact Us';
 $pageDescription = 'Get in touch with our patient care team for any questions about treatment abroad.';
+$ph = page_header_banner($pdo, 'contact_banner');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="page-header">
+<div class="<?= e($ph['class']) ?>" style="<?= e($ph['style']) ?>">
   <div class="container">
     <h1>Contact Us</h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">Contact</span></nav>

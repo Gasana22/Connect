@@ -33,6 +33,7 @@ function nav_active($pages, $current) {
       <hr class="my-2">
       <a class="<?= nav_active('home-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/home-page.php"><i class="bi bi-house-heart-fill me-2"></i>Home Page</a>
       <a class="<?= nav_active('about-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/about-page.php"><i class="bi bi-info-circle-fill me-2"></i>About Page</a>
+      <a class="<?= nav_active('page-banners.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/page-banners.php"><i class="bi bi-image-fill me-2"></i>Page Banners</a>
       <hr class="my-2">
       <a class="<?= nav_active('treatments.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/treatments.php"><i class="bi bi-clipboard2-pulse me-2"></i>Treatments</a>
       <a class="<?= nav_active('categories.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/admin/categories.php"><i class="bi bi-tags-fill me-2"></i>Categories</a>

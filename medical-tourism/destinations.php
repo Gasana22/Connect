@@ -5,10 +5,11 @@ $destinations = $pdo->query("SELECT * FROM destinations WHERE status = 'publishe
 
 $pageTitle = 'Destinations';
 $pageDescription = 'Explore the top medical tourism destinations around the world.';
+$ph = page_header_banner($pdo, 'destinations_banner');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="page-header">
+<div class="<?= e($ph['class']) ?>" style="<?= e($ph['style']) ?>">
   <div class="container">
     <h1>Destinations</h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">Destinations</span></nav>

@@ -286,4 +286,10 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('about_stat_label', 'Patients Helped'),
 ('mission_text', 'To connect every patient with safe, affordable, world-class healthcare, wherever they are in the world.'),
 ('vision_text', 'A world where distance and cost are never barriers to receiving excellent medical care.'),
-('values_text', 'Transparency, patient safety and genuine care guide every recommendation we make.');
+('values_text', 'Transparency, patient safety and genuine care guide every recommendation we make.'),
+('treatments_banner', ''),
+('destinations_banner', ''),
+('packages_banner', ''),
+('blog_banner', ''),
+('about_banner', ''),
+('contact_banner', '');

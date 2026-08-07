@@ -7,10 +7,11 @@ $doctorCount = (int)$pdo->query("SELECT COUNT(*) c FROM doctors WHERE status='pu
 
 $pageTitle = 'About Us';
 $pageDescription = 'Learn about our mission to make quality healthcare abroad accessible and transparent.';
+$ph = page_header_banner($pdo, 'about_banner');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="page-header">
+<div class="<?= e($ph['class']) ?>" style="<?= e($ph['style']) ?>">
   <div class="container">
     <h1>About <?= e(setting($pdo, 'site_name')) ?></h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">About</span></nav>

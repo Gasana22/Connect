@@ -41,10 +41,11 @@ $destinations = $pdo->query("SELECT * FROM destinations WHERE status='published'
 
 $pageTitle = 'Treatment Packages';
 $pageDescription = 'All-inclusive treatment packages with transparent, upfront pricing.';
+$ph = page_header_banner($pdo, 'packages_banner');
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<div class="page-header">
+<div class="<?= e($ph['class']) ?>" style="<?= e($ph['style']) ?>">
   <div class="container">
     <h1>Treatment Packages</h1>
     <nav class="breadcrumb-light"><a href="<?= e(BASE_URL) ?>/index.php">Home</a> / <span class="active">Packages</span></nav>
