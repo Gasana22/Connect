@@ -224,4 +224,19 @@ CREATE TABLE IF NOT EXISTS ad_impressions (
   CONSTRAINT ad_impressions_ibfk_1 FOREIGN KEY (ad_id) REFERENCES ads (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- Bearer tokens for the JSON API (api/v1/*) that the Flutter app authenticates with.
+-- Session-cookie auth (includes/auth.php) is unrelated and unaffected by this table.
+CREATE TABLE IF NOT EXISTS api_tokens (
+  id INT NOT NULL AUTO_INCREMENT,
+  user_id INT NOT NULL,
+  token_hash CHAR(64) NOT NULL,
+  device_name VARCHAR(150) NULL,
+  last_used_at TIMESTAMP NULL DEFAULT NULL,
+  created_at TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  UNIQUE KEY token_hash (token_hash),
+  KEY user_id (user_id),
+  CONSTRAINT api_tokens_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 SET FOREIGN_KEY_CHECKS = 1;

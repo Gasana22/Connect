@@ -42,6 +42,7 @@ if (!$video) {
 
 $stmt = $pdo->prepare('INSERT INTO comments (user_id, video_id, parent_id, text) VALUES (?, ?, ?, ?)');
 $stmt->execute([$userId, $videoId, $parentId, $text]);
+$commentId = (int) $pdo->lastInsertId();
 createNotification($pdo, (int) $video['user_id'], $userId, 'comment', $videoId);
 
-echo json_encode(['success' => true, 'comment_id' => (int) $pdo->lastInsertId()]);
+echo json_encode(['success' => true, 'comment_id' => $commentId]);
