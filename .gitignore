@@ -1,0 +1,10 @@
+uploads/videos/*
+uploads/profile_pics/*
+uploads/ads/*
+uploads/live/*
+!uploads/videos/.gitkeep
+!uploads/profile_pics/.gitkeep
+!uploads/ads/.gitkeep
+!uploads/live/.gitkeep
+.env
+*.log
