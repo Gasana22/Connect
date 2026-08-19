@@ -77,8 +77,9 @@ for the same idea; these are the token-authed twins for the Flutter client.
 |---|---|---|---|
 | `live.php` | GET | — | Currently-live streams |
 | `live.php` | POST | required | `{title, category_id?}` → `{stream_key}`. 409 if you're already live |
-| `live_stream.php?key=` | GET | optional | Stream detail incl. `stream_url` (the growing `.webm` file); bumps `viewer_count` |
+| `live_stream.php?key=` | GET | optional | Stream detail incl. `stream_url` (the growing `.webm` file); **bumps `viewer_count`** — call once when a viewer opens the stream, not on a poll loop |
 | `live_stream.php?key=` | POST | required (owner) | `{action: "stop"}` |
+| `live_status.php?key=` | GET | — | `{is_live, size, viewer_count}` — does **not** bump `viewer_count`; poll this repeatedly (every few seconds) to detect growth/end, and only re-fetch `live_stream.php` if you need `stream_url` again |
 | `live_chunk.php?key=` | POST | required (owner) | Raw bytes body — one `MediaRecorder` chunk, ≤5MB |
 | `live_chat.php?key=&after_id=` | GET | — | Poll for new chat messages |
 | `live_chat.php?key=` | POST | required | `{message}` |
