@@ -6,8 +6,9 @@
    ========================================================================== */
 
 :root {
-  /* Brand palette: deep emerald (trust/growth) + warm coral (energy/live/now)
-     on a warm paper background — deliberately not another indigo SaaS template. */
+  /* Brand palette: deep navy (formal, trustworthy — "business platform") + warm
+     coral (energy/live/now) on a warm paper background — deliberately not
+     another generic tech-blue SaaS template. */
   --ink: #14110f;
   --ink-soft: #4a4640;
   --ink-faint: #8b8579;
@@ -16,9 +17,9 @@
   --border: #e8e2d6;
   --border-soft: #f1ede4;
 
-  --brand: #145c46;
-  --brand-dark: #0e4433;
-  --brand-light: #e3efe9;
+  --brand: #1b2a4a;
+  --brand-dark: #101b33;
+  --brand-light: #e4e8f0;
   --accent: #ff5a3c;
   --accent-dark: #e14526;
   --accent-light: #ffe9e3;
