@@ -227,13 +227,6 @@ a:hover { color: var(--brand-purple); }
   max-width: 160px;
   width: auto;
   object-fit: contain;
-  filter: grayscale(100%);
-  opacity: .7;
-  transition: filter .2s ease, opacity .2s ease;
-}
-.partner-logo:hover {
-  filter: grayscale(0%);
-  opacity: 1;
 }
 
 .itinerary-day-badge {
