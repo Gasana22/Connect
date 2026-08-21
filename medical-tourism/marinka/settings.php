@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/includes/auth.php';
 
-$fields = ['site_name', 'site_tagline', 'site_phone', 'site_whatsapp', 'site_email', 'site_address', 'facebook_url', 'instagram_url', 'youtube_url', 'package_includes_template', 'package_excludes_template'];
+$fields = ['site_name', 'site_tagline', 'site_phone', 'site_whatsapp', 'site_email', 'site_address', 'google_maps_embed_url', 'facebook_url', 'instagram_url', 'youtube_url', 'package_includes_template', 'package_excludes_template'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -66,6 +66,11 @@ require_once __DIR__ . '/includes/admin_header.php';
     <div class="col-12">
       <label class="form-label small fw-semibold">Address</label>
       <input type="text" name="site_address" class="form-control" value="<?= e($current['site_address']) ?>">
+    </div>
+    <div class="col-12">
+      <label class="form-label small fw-semibold">Google Maps Embed URL</label>
+      <input type="url" name="google_maps_embed_url" class="form-control" value="<?= e($current['google_maps_embed_url']) ?>" placeholder="https://www.google.com/maps/embed?pb=...">
+      <div class="form-text">From Google Maps: Share &rarr; Embed a map &rarr; copy the <code>src</code> URL from the iframe code. Shown on the Contact page.</div>
     </div>
   </div>
 

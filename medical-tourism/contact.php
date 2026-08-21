@@ -35,6 +35,13 @@ require_once __DIR__ . '/includes/header.php';
           </div>
         </li>
         <li class="d-flex gap-3 mb-4">
+          <div class="icon-box"><i class="bi bi-whatsapp"></i></div>
+          <div>
+            <div class="fw-semibold">WhatsApp</div>
+            <div class="text-muted small"><?= e(setting($pdo, 'site_whatsapp')) ?></div>
+          </div>
+        </li>
+        <li class="d-flex gap-3 mb-4">
           <div class="icon-box"><i class="bi bi-envelope-fill"></i></div>
           <div>
             <div class="fw-semibold">Email</div>
@@ -44,35 +51,8 @@ require_once __DIR__ . '/includes/header.php';
       </ul>
     </div>
     <div class="col-lg-7">
-      <div class="card shadow-card p-4 p-md-5">
-        <form action="<?= e(BASE_URL) ?>/submit-lead.php" method="post" class="row g-3 needs-validation" novalidate>
-          <?= csrf_field() ?>
-          <input type="hidden" name="source" value="contact_form">
-          <input type="hidden" name="return_to" value="<?= e(BASE_URL . '/contact.php') ?>">
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold">Full Name</label>
-            <input type="text" name="full_name" class="form-control" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold">Email Address</label>
-            <input type="email" name="email" class="form-control" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold">Phone / WhatsApp</label>
-            <input type="tel" name="phone" class="form-control">
-          </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold">Country</label>
-            <input type="text" name="country" class="form-control">
-          </div>
-          <div class="col-12">
-            <label class="form-label small fw-semibold">Message</label>
-            <textarea name="message" rows="5" class="form-control" required></textarea>
-          </div>
-          <div class="col-12">
-            <button type="submit" class="btn btn-primary rounded-pill px-4">Send Message</button>
-          </div>
-        </form>
+      <div class="shadow-card overflow-hidden h-100" style="min-height:450px;">
+        <iframe src="<?= e(setting($pdo, 'google_maps_embed_url')) ?>" width="100%" height="100%" style="border:0;min-height:450px;display:block;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="Our location on Google Maps"></iframe>
       </div>
     </div>
   </div>

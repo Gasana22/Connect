@@ -46,6 +46,8 @@ require_once __DIR__ . '/includes/admin_header.php';
         <dt class="col-sm-3">Country</dt><dd class="col-sm-9"><?= e($lead['country'] ?: '-') ?></dd>
         <dt class="col-sm-3">Treatment</dt><dd class="col-sm-9"><?= e($lead['treatment_name'] ?? '-') ?></dd>
         <dt class="col-sm-3">Package</dt><dd class="col-sm-9"><?= e($lead['package_title'] ?? '-') ?></dd>
+        <dt class="col-sm-3">Expected Travel</dt><dd class="col-sm-9"><?= $lead['expected_travel_date'] ? e(date('F j, Y', strtotime($lead['expected_travel_date']))) : '-' ?></dd>
+        <dt class="col-sm-3">Flight Booked</dt><dd class="col-sm-9"><?= $lead['flight_booked'] ? e(ucfirst($lead['flight_booked'])) : '-' ?></dd>
       </dl>
       <h6 class="fw-semibold mt-3">Message</h6>
       <p class="border rounded-3 p-3 bg-brand-light"><?= nl2br(e($lead['message'])) ?></p>

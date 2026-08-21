@@ -37,16 +37,16 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold">Phone / WhatsApp</label>
-            <input type="tel" name="phone" class="form-control">
+            <input type="tel" name="phone" class="form-control" required>
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold">Country of Residence</label>
-            <input type="text" name="country" class="form-control">
+            <input type="text" name="country" class="form-control" required>
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold">Treatment Interested In</label>
-            <select name="treatment_id" class="form-select">
-              <option value="">Not sure yet</option>
+            <select name="treatment_id" class="form-select" required>
+              <option value="" disabled selected>Select a treatment</option>
               <?php foreach ($treatments as $t): ?>
                 <option value="<?= (int)$t['id'] ?>" <?= $preselectedTreatment === $t['slug'] ? 'selected' : '' ?>><?= e($t['name']) ?></option>
               <?php endforeach; ?>
@@ -54,11 +54,23 @@ require_once __DIR__ . '/includes/header.php';
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold">Preferred Destination</label>
-            <select name="preferred_destination" class="form-select">
-              <option value="">No preference</option>
+            <select name="preferred_destination" class="form-select" required>
+              <option value="" disabled selected>Select a destination</option>
               <?php foreach ($destinations as $d): ?>
                 <option value="<?= e($d['name']) ?>"><?= e($d['name']) ?></option>
               <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-semibold">Expected Travel Date</label>
+            <input type="date" name="expected_travel_date" class="form-control" min="<?= e(date('Y-m-d')) ?>" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label small fw-semibold">Have You Booked a Flight?</label>
+            <select name="flight_booked" class="form-select" required>
+              <option value="" disabled selected>Select an option</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
             </select>
           </div>
           <div class="col-12">
