@@ -30,13 +30,15 @@ require_once __DIR__ . '/includes/admin_header.php';
   <div class="table-responsive">
     <table class="table align-middle">
       <thead class="table-light">
-        <tr><th>Image</th><th>Title</th><th>Treatment</th><th>Hospital</th><th>Price</th><th>Featured</th><th>Status</th><th></th></tr>
+        <tr><th>Image</th><th>Title</th><th>Location</th><th>Days</th><th>Treatment</th><th>Hospital</th><th>Price</th><th>Featured</th><th>Status</th><th></th></tr>
       </thead>
       <tbody>
       <?php foreach ($packages as $p): ?>
         <tr>
           <td><img src="<?= e(img_url('packages', $p['image'])) ?>" class="thumb-sm"></td>
           <td><?= e($p['title']) ?></td>
+          <td><?= e($p['location']) ?></td>
+          <td><?= (int)$p['days'] ?></td>
           <td><?= e($p['treatment_name']) ?></td>
           <td><?= e($p['hospital_name']) ?></td>
           <td><?= format_price($p['price']) ?><?= $p['show_price'] ? '' : ' <span class="badge bg-secondary">Hidden on site</span>' ?></td>
@@ -53,7 +55,7 @@ require_once __DIR__ . '/includes/admin_header.php';
         </tr>
       <?php endforeach; ?>
       <?php if (!$packages): ?>
-        <tr><td colspan="8" class="text-center text-muted py-4">No packages yet.</td></tr>
+        <tr><td colspan="10" class="text-center text-muted py-4">No packages yet.</td></tr>
       <?php endif; ?>
       </tbody>
     </table>

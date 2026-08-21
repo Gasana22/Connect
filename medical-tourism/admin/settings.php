@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../includes/init.php';
 require_once __DIR__ . '/includes/auth.php';
 
-$fields = ['site_name', 'site_tagline', 'site_phone', 'site_whatsapp', 'site_email', 'site_address', 'facebook_url', 'instagram_url', 'youtube_url'];
+$fields = ['site_name', 'site_tagline', 'site_phone', 'site_whatsapp', 'site_email', 'site_address', 'facebook_url', 'instagram_url', 'youtube_url', 'package_includes_template', 'package_excludes_template'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_verify();
@@ -82,6 +82,19 @@ require_once __DIR__ . '/includes/admin_header.php';
     <div class="col-md-4">
       <label class="form-label small fw-semibold">YouTube URL</label>
       <input type="url" name="youtube_url" class="form-control" value="<?= e($current['youtube_url']) ?>">
+    </div>
+  </div>
+
+  <h6 class="fw-heading mb-3">Package Content Template</h6>
+  <p class="text-muted small">This default text is copied into the Includes/Excludes fields whenever a new package is created, saving you from retyping the same standard items every time. It has no effect on packages you've already created.</p>
+  <div class="row g-3 mb-4">
+    <div class="col-md-6">
+      <label class="form-label small fw-semibold">Default "What's Included"</label>
+      <textarea name="package_includes_template" rows="5" class="form-control" placeholder="One item per line"><?= e($current['package_includes_template']) ?></textarea>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label small fw-semibold">Default "What's Excluded"</label>
+      <textarea name="package_excludes_template" rows="5" class="form-control" placeholder="One item per line"><?= e($current['package_excludes_template']) ?></textarea>
     </div>
   </div>
 

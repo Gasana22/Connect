@@ -235,6 +235,19 @@ a:hover { color: var(--brand-purple); }
   opacity: 1;
 }
 
+.itinerary-day-badge {
+  width: 84px;
+  height: 44px;
+  background: var(--brand-purple);
+  color: #fff;
+  font-weight: 700;
+  font-size: .85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
 .cta-banner {
   background: linear-gradient(120deg, var(--brand-purple) 0%, var(--brand-primary) 100%);
   border-radius: var(--radius-lg);

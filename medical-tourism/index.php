@@ -210,7 +210,7 @@ require_once __DIR__ . '/includes/header.php';
             <div class="card-body">
               <span class="badge-category"><?= e($p['treatment_name']) ?></span>
               <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/package-detail.php?slug=<?= e($p['slug']) ?>" class="text-dark stretched-link"><?= e($p['title']) ?></a></h5>
-              <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= e($p['hospital_name']) ?>, <?= e($p['destination_name']) ?></p>
+              <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= e($p['location'] ?: ($p['hospital_name'] . ', ' . $p['destination_name'])) ?></p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="price-tag"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
                 <span class="text-muted small"><?= e($p['duration']) ?></span>

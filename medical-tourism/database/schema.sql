@@ -173,6 +173,10 @@ CREATE TABLE packages (
     image VARCHAR(255) NULL,
     price DECIMAL(10,2) NOT NULL,
     duration VARCHAR(50) NULL,
+    location VARCHAR(150) NULL,
+    days INT NULL,
+    valid_from DATE NULL,
+    valid_until DATE NULL,
     featured TINYINT(1) NOT NULL DEFAULT 0,
     show_price TINYINT(1) NOT NULL DEFAULT 1,
     status ENUM('published','draft') NOT NULL DEFAULT 'published',
@@ -181,13 +185,42 @@ CREATE TABLE packages (
     CONSTRAINT fk_package_hospital FOREIGN KEY (hospital_id) REFERENCES hospitals(id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 
-INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, excludes, image, price, duration, featured) VALUES
-(2, 1, 'Complete FUE Hair Transplant Package - Istanbul', 'complete-fue-hair-transplant-istanbul', 'All-inclusive hair transplant with hotel stay and VIP transfer.', 'A full-service hair restoration journey combining a premium FUE procedure with a comfortable stay in Istanbul.', '5-star hotel (4 nights)\nVIP airport transfers\nSurgery + PRP session\nMedication kit\nAftercare follow-up', 'International flights\nMeals outside of hotel breakfast\nTravel insurance\nAdditional PRP sessions beyond the first', 'package-hair.jpg', 1899.00, '4 days / 3 nights', 1),
-(1, 1, 'All-on-4 Dental Implants Package', 'all-on-4-dental-implants-package', 'Full-arch restoration with premium implant brand.', 'Complete smile restoration using the All-on-4 technique, including all surgical and prosthetic stages.', 'Consultation & 3D scan\nImplant surgery (upper or lower arch)\nTemporary + final prosthesis\nHotel (5 nights)\nAirport transfers', 'International flights\nOpposite-arch treatment (if needed)\nTravel insurance\nMeals outside of hotel breakfast', 'package-dental.jpg', 5200.00, '6 days / 5 nights', 1),
-(5, 3, 'Cardiac Bypass Surgery Package - Delhi', 'cardiac-bypass-surgery-package-delhi', 'Comprehensive CABG package with top cardiac surgeons.', 'A complete cardiac care journey including surgery, ICU stay and rehabilitation planning.', 'Pre-op cardiac work-up\nCABG surgery\nICU + ward stay (10 nights)\nCardiac rehab consultation\nAirport pickup', 'International flights\nExtended ICU stay beyond 3 nights\nTravel insurance\nCompanion accommodation', 'package-cardiac.jpg', 9800.00, '14 days', 1),
-(7, 4, 'Gastric Sleeve Weight Loss Package', 'gastric-sleeve-weight-loss-package', 'Laparoscopic sleeve surgery with post-op nutrition plan.', 'A supportive bariatric surgery package designed for a safe, comfortable recovery close to Cancun beaches.', 'Pre-op labs & consultation\nLaparoscopic sleeve gastrectomy\nHospital stay (2 nights)\nHotel recovery stay (3 nights)\n12-month nutrition plan', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nSupplements after the first month', 'package-bariatric.jpg', 4500.00, '5 days / 4 nights', 1),
-(3, 5, 'Rhinoplasty & Recovery Retreat - Seoul', 'rhinoplasty-recovery-retreat-seoul', 'Precision rhinoplasty with a relaxing Seoul recovery stay.', 'Combines expert rhinoplasty with a comfortable boutique hotel recovery stay in Gangnam.', 'Consultation & 3D simulation\nRhinoplasty surgery\nBoutique hotel (5 nights)\n2 follow-up visits', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nRevision surgery', 'package-rhino.jpg', 3400.00, '6 days / 5 nights', 0),
-(6, 6, 'IVF Treatment Package - Kuala Lumpur', 'ivf-treatment-package-kuala-lumpur', 'Full IVF cycle with genetic screening add-on options.', 'A complete IVF journey with a dedicated fertility coordinator supporting patients throughout their stay.', 'Ovarian stimulation & monitoring\nEgg retrieval & ICSI\nEmbryo transfer\nHotel (10 nights)\nDedicated coordinator', 'International flights\nGenetic screening (PGT-A)\nTravel insurance\nMedications beyond the standard protocol', 'package-ivf.jpg', 5600.00, '2-3 weeks', 0);
+INSERT INTO packages (treatment_id, hospital_id, title, slug, summary, description, includes, excludes, image, price, duration, location, days, valid_from, valid_until, featured) VALUES
+(2, 1, 'Complete FUE Hair Transplant Package - Istanbul', 'complete-fue-hair-transplant-istanbul', 'All-inclusive hair transplant with hotel stay and VIP transfer.', 'A full-service hair restoration journey combining a premium FUE procedure with a comfortable stay in Istanbul.', '5-star hotel (4 nights)\nVIP airport transfers\nSurgery + PRP session\nMedication kit\nAftercare follow-up', 'International flights\nMeals outside of hotel breakfast\nTravel insurance\nAdditional PRP sessions beyond the first', 'package-hair.jpg', 1899.00, '4 days / 3 nights', 'Istanbul, Turkey', 4, '2026-01-01', '2026-12-31', 1),
+(1, 1, 'All-on-4 Dental Implants Package', 'all-on-4-dental-implants-package', 'Full-arch restoration with premium implant brand.', 'Complete smile restoration using the All-on-4 technique, including all surgical and prosthetic stages.', 'Consultation & 3D scan\nImplant surgery (upper or lower arch)\nTemporary + final prosthesis\nHotel (5 nights)\nAirport transfers', 'International flights\nOpposite-arch treatment (if needed)\nTravel insurance\nMeals outside of hotel breakfast', 'package-dental.jpg', 5200.00, '6 days / 5 nights', 'Istanbul, Turkey', 6, '2026-01-01', '2026-12-31', 1),
+(5, 3, 'Cardiac Bypass Surgery Package - Delhi', 'cardiac-bypass-surgery-package-delhi', 'Comprehensive CABG package with top cardiac surgeons.', 'A complete cardiac care journey including surgery, ICU stay and rehabilitation planning.', 'Pre-op cardiac work-up\nCABG surgery\nICU + ward stay (10 nights)\nCardiac rehab consultation\nAirport pickup', 'International flights\nExtended ICU stay beyond 3 nights\nTravel insurance\nCompanion accommodation', 'package-cardiac.jpg', 9800.00, '14 days', 'New Delhi, India', 14, '2026-01-01', '2026-12-31', 1),
+(7, 4, 'Gastric Sleeve Weight Loss Package', 'gastric-sleeve-weight-loss-package', 'Laparoscopic sleeve surgery with post-op nutrition plan.', 'A supportive bariatric surgery package designed for a safe, comfortable recovery close to Cancun beaches.', 'Pre-op labs & consultation\nLaparoscopic sleeve gastrectomy\nHospital stay (2 nights)\nHotel recovery stay (3 nights)\n12-month nutrition plan', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nSupplements after the first month', 'package-bariatric.jpg', 4500.00, '5 days / 4 nights', 'Cancun, Mexico', 5, '2026-01-01', '2026-12-31', 1),
+(3, 5, 'Rhinoplasty & Recovery Retreat - Seoul', 'rhinoplasty-recovery-retreat-seoul', 'Precision rhinoplasty with a relaxing Seoul recovery stay.', 'Combines expert rhinoplasty with a comfortable boutique hotel recovery stay in Gangnam.', 'Consultation & 3D simulation\nRhinoplasty surgery\nBoutique hotel (5 nights)\n2 follow-up visits', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nRevision surgery', 'package-rhino.jpg', 3400.00, '6 days / 5 nights', 'Seoul, South Korea', 6, '2026-01-01', '2026-12-31', 0),
+(6, 6, 'IVF Treatment Package - Kuala Lumpur', 'ivf-treatment-package-kuala-lumpur', 'Full IVF cycle with genetic screening add-on options.', 'A complete IVF journey with a dedicated fertility coordinator supporting patients throughout their stay.', 'Ovarian stimulation & monitoring\nEgg retrieval & ICSI\nEmbryo transfer\nHotel (10 nights)\nDedicated coordinator', 'International flights\nGenetic screening (PGT-A)\nTravel insurance\nMedications beyond the standard protocol', 'package-ivf.jpg', 5600.00, '2-3 weeks', 'Kuala Lumpur, Malaysia', 14, '2026-01-01', '2026-12-31', 0);
+
+-- ---------------------------------------------------------------------
+-- Package day-by-day itinerary (managed per-package in the admin form)
+-- ---------------------------------------------------------------------
+CREATE TABLE package_itinerary (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    package_id INT NOT NULL,
+    day_number INT NOT NULL,
+    title VARCHAR(150) NULL,
+    description TEXT NULL,
+    CONSTRAINT fk_itinerary_package FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+INSERT INTO package_itinerary (package_id, day_number, title, description) VALUES
+(1, 1, 'Arrival & Consultation', 'VIP airport pickup and transfer to your hotel. Same-day consultation and graft planning with your surgeon.'),
+(1, 2, 'FUE Procedure', 'Full-day FUE hair transplant procedure at the clinic, followed by transfer back to your hotel to rest.'),
+(1, 3, 'Recovery & First Wash', 'Guided first hair wash at the clinic and a check-up with your surgeon. Free time to explore Istanbul.'),
+(1, 4, 'Departure', 'Final aftercare kit handover and transfer to the airport for your flight home.');
+
+-- ---------------------------------------------------------------------
+-- Package photo gallery (managed per-package in the admin form)
+-- ---------------------------------------------------------------------
+CREATE TABLE package_gallery (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    package_id INT NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    CONSTRAINT fk_gallery_package FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
 
 -- ---------------------------------------------------------------------
 -- Blog posts
@@ -307,4 +340,6 @@ INSERT INTO settings (setting_key, setting_value) VALUES
 ('packages_banner', ''),
 ('blog_banner', ''),
 ('about_banner', ''),
-('contact_banner', '');
+('contact_banner', ''),
+('package_includes_template', 'Airport pickup & drop-off\nAccommodation as specified\nAll medical/procedure fees\nDedicated patient coordinator\nAftercare follow-up'),
+('package_excludes_template', 'International flights\nTravel insurance\nMeals outside of hotel breakfast\nPersonal expenses\nAny treatment not listed in the package');
