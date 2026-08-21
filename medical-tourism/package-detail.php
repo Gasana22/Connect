@@ -163,23 +163,18 @@ require_once __DIR__ . '/includes/header.php';
         </ul>
       </div>
       <?php endif; ?>
-    </div>
-  </div>
 
-  <?php if ($gallery): ?>
-  <div class="mt-5">
-    <h3 class="fw-heading mb-3">Photo Gallery</h3>
-    <div class="row g-3">
-      <?php foreach ($gallery as $img): ?>
-        <div class="col-6 col-md-3">
-          <a href="<?= e(img_url('package-gallery', $img['image'])) ?>" target="_blank" rel="noopener">
-            <img src="<?= e(img_url('package-gallery', $img['image'])) ?>" class="w-100" style="height:140px;object-fit:cover;">
+      <?php if ($gallery): ?>
+      <div class="mt-4">
+        <?php foreach ($gallery as $img): ?>
+          <a href="<?= e(img_url('package-gallery', $img['image'])) ?>" target="_blank" rel="noopener" class="d-block mb-3">
+            <img src="<?= e(img_url('package-gallery', $img['image'])) ?>" class="w-100" style="height:180px;object-fit:cover;">
           </a>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
     </div>
   </div>
-  <?php endif; ?>
 
   <?php if ($otherPackages): ?>
   <div class="mt-5">
