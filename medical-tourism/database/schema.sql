@@ -18,6 +18,8 @@ CREATE TABLE admin_users (
     password VARCHAR(255) NOT NULL,
     role ENUM('super_admin','editor') NOT NULL DEFAULT 'editor',
     status ENUM('active','disabled') NOT NULL DEFAULT 'active',
+    failed_attempts INT NOT NULL DEFAULT 0,
+    locked_until DATETIME NULL,
     last_login DATETIME NULL,
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;

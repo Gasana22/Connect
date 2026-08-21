@@ -21,5 +21,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
 } catch (PDOException $e) {
-    die('Database connection failed. Please make sure MySQL is running in XAMPP and that the "medical_tourism" database has been imported. (' . $e->getMessage() . ')');
+    error_log('Database connection failed: ' . $e->getMessage());
+    http_response_code(500);
+    die('Database connection failed. Please make sure MySQL is running in XAMPP and that the "medical_tourism" database has been imported.');
 }

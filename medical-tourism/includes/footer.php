@@ -30,7 +30,7 @@
           <li><a href="<?= e(BASE_URL) ?>/blog.php">Blog</a></li>
           <li><a href="<?= e(BASE_URL) ?>/testimonials.php">Testimonials</a></li>
           <li><a href="<?= e(BASE_URL) ?>/contact.php">Contact</a></li>
-          <li><a href="<?= e(BASE_URL) ?>/admin/login.php">Admin Login</a></li>
+          <li><a href="<?= e(BASE_URL) ?>/marinka/login.php">Admin Login</a></li>
         </ul>
       </div>
       <div class="col-lg-4">

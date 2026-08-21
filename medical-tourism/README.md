@@ -12,7 +12,7 @@ A complete medical tourism website built in plain PHP + MySQL (PDO), with a full
 - "Get a Free Quote" lead-capture form and per-package enquiry forms
 - Fully responsive (Bootstrap 5), mobile-friendly navigation, WhatsApp click-to-chat button
 
-**Admin panel** (`/admin`)
+**Admin panel** (`/marinka`)
 - Secure login (bcrypt password hashing, CSRF-protected, session-based)
 - Dashboard with lead stats and a 14-day leads chart
 - Full CRUD for Treatments, Destinations, Hospitals, Doctors, Packages, Blog Posts, Testimonials
@@ -58,7 +58,7 @@ A complete medical tourism website built in plain PHP + MySQL (PDO), with a full
    ```
 6. **Log into the admin panel:**
    ```
-   http://localhost/medical-tourism/admin/login.php
+   http://localhost/medical-tourism/marinka/login.php
    ```
    Default credentials (change this password after first login, via *My Profile*):
    ```
@@ -70,7 +70,7 @@ A complete medical tourism website built in plain PHP + MySQL (PDO), with a full
 
 ```
 medical-tourism/
-├── admin/              Admin panel (auth-protected)
+├── marinka/              Admin panel (auth-protected)
 │   └── includes/        Admin layout + auth guard
 ├── assets/              CSS, JS, placeholder image
 ├── config/               db.php – database & site configuration
@@ -78,7 +78,7 @@ medical-tourism/
 ├── includes/            Shared PHP includes (header, footer, helpers)
 ├── uploads/              User-uploaded images, organized per content type
 ├── index.php, treatments.php, ...   Public-facing pages
-└── admin/index.php, admin/treatments.php, ...   Admin panel pages
+└── marinka/index.php, marinka/treatments.php, ...   Admin panel pages
 ```
 
 ## Security Notes
@@ -87,7 +87,7 @@ medical-tourism/
 - Admin passwords are hashed with `password_hash()` (bcrypt).
 - Every state-changing form (public and admin) is protected with a CSRF token.
 - Uploaded images are validated by extension + real MIME type, capped at 5MB, and renamed to random filenames on save.
-- `.htaccess` files block direct access to `/config`, `/database`, `/includes` and `/admin/includes`, and prevent any uploaded file from being executed as a script — even if it were somehow given a disallowed extension.
+- `.htaccess` files block direct access to `/config`, `/database`, `/includes` and `/marinka/includes`, and prevent any uploaded file from being executed as a script — even if it were somehow given a disallowed extension.
 - Change the default admin password immediately after your first login.
 
 ## Customization
@@ -95,4 +95,4 @@ medical-tourism/
 - Site name, contact details, social links and "About" text are all editable from **Admin → Site Settings** — no code changes required.
 - Colors and theme live in `assets/css/style.css` (see the `:root` CSS variables at the top of the file — the palette is purple `#4b2e83` + blue `#2856c9` with a gold accent, matching the Let's Go Medical logo).
 - The logo is `assets/img/logo.svg`, referenced from the main header, footer, admin sidebar and admin login page. Replace this file with your own artwork (same filename) to swap it everywhere at once.
-- To add a new content type, follow the pattern used by `admin/treatments.php` + `admin/treatment-form.php`.
+- To add a new content type, follow the pattern used by `marinka/treatments.php` + `marinka/treatment-form.php`.
