@@ -5,6 +5,7 @@ $hospitalCount = (int)$pdo->query("SELECT COUNT(*) c FROM hospitals WHERE status
 $destinationCount = (int)$pdo->query("SELECT COUNT(*) c FROM destinations WHERE status='published'")->fetch()['c'];
 $doctorCount = (int)$pdo->query("SELECT COUNT(*) c FROM doctors WHERE status='published'")->fetch()['c'];
 $partners = $pdo->query("SELECT * FROM partners WHERE status = 'published' ORDER BY sort_order ASC, name ASC")->fetchAll();
+$team = $pdo->query("SELECT * FROM team_members WHERE status = 'published' ORDER BY sort_order ASC, name ASC")->fetchAll();
 
 $pageTitle = 'About Us';
 $pageDescription = 'Learn about our mission to make quality healthcare abroad accessible and transparent.';
@@ -74,6 +75,23 @@ require_once __DIR__ . '/includes/header.php';
       <p class="text-muted small"><?= e(setting($pdo, 'values_text')) ?></p>
     </div>
   </div>
+
+  <?php if ($team): ?>
+  <div class="mt-5 pt-4 text-center">
+    <span class="section-title-badge">Our Team</span>
+    <h2 class="mt-3 mb-4 fw-heading">The People Behind Your Care</h2>
+    <div class="row g-4 justify-content-center">
+      <?php foreach ($team as $member): ?>
+        <div class="col-6 col-md-3">
+          <img src="<?= e(img_url('team', $member['photo'])) ?>" alt="<?= e($member['name']) ?>" class="rounded-circle mb-3" style="width:120px;height:120px;object-fit:cover;">
+          <h6 class="fw-semibold mb-0"><?= e($member['name']) ?></h6>
+          <?php if ($member['role_title']): ?><div class="text-muted small mb-2"><?= e($member['role_title']) ?></div><?php endif; ?>
+          <?php if ($member['bio']): ?><p class="text-muted small"><?= e($member['bio']) ?></p><?php endif; ?>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+  <?php endif; ?>
 
   <?php if ($partners): ?>
   <div class="mt-5 pt-4 text-center">

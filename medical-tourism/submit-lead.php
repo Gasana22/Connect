@@ -8,6 +8,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 csrf_verify();
 
+// Simple abuse throttle: one submission every 20 seconds per session,
+// on top of the CSRF token already requiring a real page load first.
+$lastSubmit = $_SESSION['last_lead_submit'] ?? 0;
+if (time() - $lastSubmit < 20) {
+    flash_set('danger', 'Please wait a moment before submitting again.');
+    redirect($_POST['return_to'] ?? BASE_URL . '/contact.php');
+}
+$_SESSION['last_lead_submit'] = time();
+
 $fullName = trim($_POST['full_name'] ?? '');
 $email = trim($_POST['email'] ?? '');
 $phone = trim($_POST['phone'] ?? '');

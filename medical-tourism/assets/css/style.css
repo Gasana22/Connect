@@ -242,6 +242,37 @@ a:hover { color: var(--brand-purple); }
   text-align: center;
 }
 
+.rich-editor-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .25rem;
+  margin-bottom: .5rem;
+}
+.rich-editor-body {
+  min-height: 180px;
+  padding: .75rem 1rem;
+  overflow-y: auto;
+}
+.rich-editor-body:focus {
+  outline: none;
+  border-color: var(--brand-primary);
+  box-shadow: 0 0 0 .2rem rgba(90, 60, 200, .15);
+}
+.rich-editor-body ul, .rich-editor-body ol {
+  padding-left: 1.5rem;
+}
+
+.rich-content ul, .rich-content ol {
+  padding-left: 1.5rem;
+  color: var(--ink-muted, #5c5a68);
+}
+.rich-content p {
+  color: var(--ink-muted, #5c5a68);
+}
+.rich-content h4 {
+  margin-top: 1.25rem;
+}
+
 .cta-banner {
   background: linear-gradient(120deg, var(--brand-purple) 0%, var(--brand-primary) 100%);
   border-radius: var(--radius-lg);

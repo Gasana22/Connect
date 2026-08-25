@@ -74,4 +74,61 @@ document.addEventListener('DOMContentLoaded', function () {
       heroSlides[currentSlide].classList.add('active');
     }, 5000);
   }
+
+  // Rich text editor: turns any textarea[data-rich-editor] into a
+  // contenteditable box with a formatting toolbar (bold/italic/underline,
+  // headings, lists, link). No external library — uses the browser's
+  // built-in execCommand, which still works for this basic formatting set
+  // in every major browser. The textarea stays in the DOM (hidden) and is
+  // kept in sync so the form still submits its HTML value normally.
+  document.querySelectorAll('textarea[data-rich-editor]').forEach(function (textarea) {
+    var toolbarButtons = [
+      { cmd: 'bold', icon: 'bi-type-bold', title: 'Bold' },
+      { cmd: 'italic', icon: 'bi-type-italic', title: 'Italic' },
+      { cmd: 'underline', icon: 'bi-type-underline', title: 'Underline' },
+      { cmd: 'formatBlock', value: 'h4', icon: 'bi-type-h1', title: 'Heading' },
+      { cmd: 'formatBlock', value: 'p', icon: 'bi-paragraph', title: 'Paragraph' },
+      { cmd: 'insertUnorderedList', icon: 'bi-list-ul', title: 'Bullet List' },
+      { cmd: 'insertOrderedList', icon: 'bi-list-ol', title: 'Numbered List' },
+      { cmd: 'removeFormat', icon: 'bi-eraser', title: 'Clear Formatting' },
+    ];
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'rich-editor';
+
+    var toolbar = document.createElement('div');
+    toolbar.className = 'rich-editor-toolbar';
+    toolbarButtons.forEach(function (btn) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'btn btn-sm btn-outline-secondary';
+      button.title = btn.title;
+      button.innerHTML = '<i class="bi ' + btn.icon + '"></i>';
+      button.addEventListener('click', function () {
+        document.execCommand(btn.cmd, false, btn.value || null);
+        editable.focus();
+      });
+      toolbar.appendChild(button);
+    });
+
+    var editable = document.createElement('div');
+    editable.className = 'rich-editor-body form-control';
+    editable.contentEditable = 'true';
+    editable.innerHTML = textarea.value;
+    editable.addEventListener('input', function () {
+      textarea.value = editable.innerHTML;
+    });
+
+    textarea.classList.add('d-none');
+    textarea.parentNode.insertBefore(wrapper, textarea);
+    wrapper.appendChild(toolbar);
+    wrapper.appendChild(editable);
+
+    var form = textarea.closest('form');
+    if (form) {
+      form.addEventListener('submit', function () {
+        textarea.value = editable.innerHTML;
+      });
+    }
+  });
 });

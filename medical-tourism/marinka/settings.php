@@ -48,6 +48,7 @@ require_once __DIR__ . '/includes/admin_header.php';
     </div>
   </div>
   <p class="text-muted small">Homepage hero content lives under <a href="<?= e(BASE_URL) ?>/marinka/home-page.php">Home Page</a>, and the About page content lives under <a href="<?= e(BASE_URL) ?>/marinka/about-page.php">About Page</a>.</p>
+  <p class="text-muted small"><i class="bi bi-file-earmark-word me-1"></i><a href="<?= e(BASE_URL) ?>/downloads/letterhead-template.docx">Download the branded letterhead template (Word)</a> &mdash; ready-to-use header/footer for any staff correspondence.</p>
 
   <h6 class="fw-heading mb-3">Contact Details</h6>
   <div class="row g-3 mb-4">

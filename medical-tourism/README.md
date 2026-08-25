@@ -84,11 +84,23 @@ medical-tourism/
 ## Security Notes
 
 - All database queries use PDO prepared statements.
-- Admin passwords are hashed with `password_hash()` (bcrypt).
+- Admin passwords are hashed with `password_hash()` (bcrypt), minimum 8 characters.
 - Every state-changing form (public and admin) is protected with a CSRF token.
-- Uploaded images are validated by extension + real MIME type, capped at 5MB, and renamed to random filenames on save.
+- The admin login locks an account for 15 minutes after 5 failed attempts.
+- Uploaded images are validated by extension + real MIME type, capped at 5MB, re-encoded through GD (strips metadata and defeats disguised files), and renamed to random filenames on save.
+- Session cookies are `HttpOnly`, `SameSite=Lax` and marked `Secure` automatically over HTTPS.
+- Security response headers are sent on every page: `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`.
+- Raw PHP errors are never shown to visitors (`display_errors` off) — check your PHP error log if something goes wrong.
 - `.htaccess` files block direct access to `/config`, `/database`, `/includes` and `/marinka/includes`, and prevent any uploaded file from being executed as a script — even if it were somehow given a disallowed extension.
+- The public lead/quote forms are throttled to one submission per 20 seconds per visitor.
 - Change the default admin password immediately after your first login.
+- **Database user:** this project defaults to XAMPP's `root` user with a blank password, which is fine for local development but should never be used if the site is exposed beyond your own machine. Before going live, create a dedicated MySQL user with access to only this database:
+  ```sql
+  CREATE USER 'medtourism_app'@'localhost' IDENTIFIED BY 'choose-a-strong-password';
+  GRANT SELECT, INSERT, UPDATE, DELETE ON medical_tourism.* TO 'medtourism_app'@'localhost';
+  FLUSH PRIVILEGES;
+  ```
+  Then update `DB_USER` / `DB_PASS` in `config/db.php` to match. Also set a root password in XAMPP's MySQL/phpMyAdmin (it ships blank by default) and disable remote access to phpMyAdmin if this server is ever reachable from outside your own machine.
 
 ## Customization
 

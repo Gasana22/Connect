@@ -263,6 +263,9 @@ require_once __DIR__ . '/includes/admin_header.php';
   <hr class="my-4">
   <button type="submit" class="btn btn-primary rounded-pill px-4">Save Package</button>
   <a href="<?= e(BASE_URL) ?>/marinka/packages.php" class="btn btn-outline-secondary rounded-pill px-4">Cancel</a>
+  <?php if ($id): ?>
+    <a href="<?= e(BASE_URL) ?>/marinka/package-pdf.php?id=<?= (int)$id ?>" class="btn btn-outline-secondary rounded-pill px-4 float-end"><i class="bi bi-file-earmark-pdf me-1"></i>Download PDF Quote</a>
+  <?php endif; ?>
 </form>
 
 <?php if ($id): ?>

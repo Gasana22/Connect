@@ -19,6 +19,13 @@ header_remove('X-Powered-By');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: SAMEORIGIN');
 header('Referrer-Policy: strict-origin-when-cross-origin');
+// Defense-in-depth: only load scripts/styles/fonts/frames from this site
+// (plus the Google Maps embed on the Contact page), and block outbound
+// fetch/XHR to any third-party host so a future stored-XSS bug can't
+// exfiltrate data. 'unsafe-inline' stays on script/style because the site
+// uses inline onclick/onsubmit confirms and inline style attributes
+// throughout — removing it would require a larger template refactor.
+header("Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';");
 
 function e($value) {
     return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
@@ -136,7 +143,36 @@ function handle_image_upload($fieldName, $destinationDir, $currentFile = null) {
     if (!is_dir($destinationDir)) {
         mkdir($destinationDir, 0755, true);
     }
-    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
+
+    // Re-encode through GD so only genuine decoded pixel data is ever
+    // written to disk. This strips EXIF/metadata and defeats polyglot
+    // files crafted to pass MIME sniffing while smuggling other content.
+    $image = null;
+    if ($ext === 'jpg' || $ext === 'jpeg') {
+        $image = @imagecreatefromjpeg($file['tmp_name']);
+    } elseif ($ext === 'png') {
+        $image = @imagecreatefrompng($file['tmp_name']);
+    } elseif ($ext === 'webp') {
+        $image = @imagecreatefromwebp($file['tmp_name']);
+    }
+    if (!$image) {
+        flash_set('danger', 'The uploaded file is not a valid image.');
+        return $currentFile;
+    }
+
+    $saved = false;
+    if ($ext === 'jpg' || $ext === 'jpeg') {
+        $saved = imagejpeg($image, $targetPath, 90);
+    } elseif ($ext === 'png') {
+        imagealphablending($image, false);
+        imagesavealpha($image, true);
+        $saved = imagepng($image, $targetPath, 6);
+    } elseif ($ext === 'webp') {
+        $saved = imagewebp($image, $targetPath, 90);
+    }
+    imagedestroy($image);
+
+    if ($saved) {
         return $newName;
     }
     flash_set('danger', 'The image could not be saved on the server.');

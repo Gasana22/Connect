@@ -46,9 +46,9 @@ $flash = flash_get();
     <div class="collapse navbar-collapse" id="mainNav">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'index.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/index.php">Home</a></li>
+        <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['packages.php','package-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/packages.php">Packages</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['treatments.php','treatment-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/treatments.php">Treatments</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['destinations.php','destination-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/destinations.php">Destinations</a></li>
-        <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['packages.php','package-detail.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/packages.php">Packages</a></li>
         <li class="nav-item"><a class="nav-link <?= in_array($currentPage, ['blog.php','blog-post.php']) ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/blog.php">Blog</a></li>
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'about.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/about.php">About</a></li>
         <li class="nav-item"><a class="nav-link <?= $currentPage === 'contact.php' ? 'active' : '' ?>" href="<?= e(BASE_URL) ?>/contact.php">Contact</a></li>

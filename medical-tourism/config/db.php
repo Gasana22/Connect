@@ -3,6 +3,14 @@
 // Database + site configuration
 // Edit these values to match your XAMPP / MySQL setup.
 // -----------------------------------------------------------------------
+
+// Never show raw PHP errors/stack traces to visitors (they can leak file
+// paths, table names and other details useful to an attacker). Errors are
+// still logged server-side for debugging via the normal PHP error log.
+error_reporting(E_ALL);
+ini_set('display_errors', '0');
+ini_set('log_errors', '1');
+
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'medical_tourism');
 define('DB_USER', 'root');

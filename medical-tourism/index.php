@@ -101,6 +101,39 @@ require_once __DIR__ . '/includes/header.php';
   </div>
 </div>
 
+<!-- Featured Packages -->
+<?php if ($packages): ?>
+<section class="py-5 mt-4">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="section-title-badge">All-Inclusive Packages</span>
+      <h2 class="mt-3 fw-heading">Featured Treatment Packages</h2>
+    </div>
+    <div class="row g-4">
+      <?php foreach ($packages as $p): ?>
+        <div class="col-lg-4">
+          <div class="card shadow-card package-card">
+            <div class="card-img-wrap">
+              <span class="badge-featured">Featured</span>
+              <img src="<?= e(img_url('packages', $p['image'])) ?>" alt="<?= e($p['title']) ?>">
+            </div>
+            <div class="card-body">
+              <span class="badge-category"><?= e($p['treatment_name']) ?></span>
+              <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/package-detail.php?slug=<?= e($p['slug']) ?>" class="text-dark stretched-link"><?= e($p['title']) ?></a></h5>
+              <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= e($p['location'] ?: ($p['hospital_name'] . ', ' . $p['destination_name'])) ?></p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="price-tag"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
+                <span class="text-muted small"><?= e($p['duration']) ?></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- Popular Treatments -->
 <section class="py-5 mt-4">
   <div class="container">
@@ -190,39 +223,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
   </div>
 </section>
-
-<!-- Featured Packages -->
-<?php if ($packages): ?>
-<section class="py-5 bg-brand-light">
-  <div class="container">
-    <div class="text-center mb-5">
-      <span class="section-title-badge">All-Inclusive Packages</span>
-      <h2 class="mt-3 fw-heading">Featured Treatment Packages</h2>
-    </div>
-    <div class="row g-4">
-      <?php foreach ($packages as $p): ?>
-        <div class="col-lg-4">
-          <div class="card shadow-card package-card">
-            <div class="card-img-wrap">
-              <span class="badge-featured">Featured</span>
-              <img src="<?= e(img_url('packages', $p['image'])) ?>" alt="<?= e($p['title']) ?>">
-            </div>
-            <div class="card-body">
-              <span class="badge-category"><?= e($p['treatment_name']) ?></span>
-              <h5 class="mt-3"><a href="<?= e(BASE_URL) ?>/package-detail.php?slug=<?= e($p['slug']) ?>" class="text-dark stretched-link"><?= e($p['title']) ?></a></h5>
-              <p class="text-muted small mb-2"><i class="bi bi-geo-alt"></i> <?= e($p['location'] ?: ($p['hospital_name'] . ', ' . $p['destination_name'])) ?></p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="price-tag"><?= price_or_contact($p['show_price'], format_price($p['price'])) ?></div>
-                <span class="text-muted small"><?= e($p['duration']) ?></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
-    </div>
-  </div>
-</section>
-<?php endif; ?>
 
 <!-- How it works -->
 <section class="py-5">

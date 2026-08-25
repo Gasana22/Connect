@@ -45,6 +45,7 @@ require_once __DIR__ . '/includes/admin_header.php';
           <td><?= $p['featured'] ? '<span class="badge bg-warning">Featured</span>' : '' ?></td>
           <td><span class="badge bg-<?= $p['status'] === 'published' ? 'success' : 'secondary' ?>"><?= e(ucfirst($p['status'])) ?></span></td>
           <td class="text-end">
+            <a href="<?= e(BASE_URL) ?>/marinka/package-pdf.php?id=<?= (int)$p['id'] ?>" class="btn btn-sm btn-outline-secondary" title="Download PDF"><i class="bi bi-file-earmark-pdf"></i></a>
             <a href="<?= e(BASE_URL) ?>/marinka/package-form.php?id=<?= (int)$p['id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
             <form action="" method="post" class="d-inline" onsubmit="return confirm('Delete this package?');">
               <?= csrf_field() ?>

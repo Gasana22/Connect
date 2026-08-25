@@ -43,6 +43,14 @@ CREATE TABLE destinations (
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB;
 
+CREATE TABLE destination_gallery (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    destination_id INT NOT NULL,
+    image VARCHAR(255) NOT NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    CONSTRAINT fk_dest_gallery_destination FOREIGN KEY (destination_id) REFERENCES destinations(id) ON DELETE CASCADE
+) ENGINE=InnoDB;
+
 INSERT INTO destinations (name, slug, summary, description, image, avg_savings) VALUES
 ('Turkey', 'turkey', 'World-leading hub for hair transplants, dental & cosmetic surgery.', 'Turkey combines JCI-accredited hospitals, internationally trained surgeons and modern facilities in Istanbul and Antalya, making it one of the most visited medical tourism destinations in the world.', 'turkey.jpg', 'Up to 70%'),
 ('Thailand', 'thailand', 'Renowned for cosmetic surgery, dental work and wellness retreats.', 'Thailand offers award-winning hospitals such as Bumrungrad International, combining five-star hospitality with advanced medical technology across Bangkok and Phuket.', 'thailand.jpg', 'Up to 65%'),
@@ -300,6 +308,17 @@ CREATE TABLE partners (
     name VARCHAR(150) NOT NULL,
     logo VARCHAR(255) NULL,
     website_url VARCHAR(255) NULL,
+    sort_order INT NOT NULL DEFAULT 0,
+    status ENUM('published','draft') NOT NULL DEFAULT 'published',
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
+CREATE TABLE team_members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    role_title VARCHAR(150) NULL,
+    bio VARCHAR(500) NULL,
+    photo VARCHAR(255) NULL,
     sort_order INT NOT NULL DEFAULT 0,
     status ENUM('published','draft') NOT NULL DEFAULT 'published',
     created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP

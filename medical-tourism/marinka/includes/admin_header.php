@@ -17,6 +17,7 @@ function nav_active($pages, $current) {
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= e($adminPageTitle) ?></title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2224%22 font-size=%2224%22>%E2%9A%95%EF%B8%8F</text></svg>">
 <link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
 <link href="<?= e(BASE_URL) ?>/assets/css/style.css" rel="stylesheet">
@@ -34,6 +35,7 @@ function nav_active($pages, $current) {
       <a class="<?= nav_active('home-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/home-page.php"><i class="bi bi-house-heart-fill me-2"></i>Home Page</a>
       <a class="<?= nav_active('about-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/about-page.php"><i class="bi bi-info-circle-fill me-2"></i>About Page</a>
       <a class="<?= nav_active(['partners.php','partner-form.php'], $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/partners.php"><i class="bi bi-handshake me-2"></i>Partners</a>
+      <a class="<?= nav_active(['team.php','team-form.php'], $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/team.php"><i class="bi bi-people-fill me-2"></i>Team</a>
       <a class="<?= nav_active('page-banners.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/page-banners.php"><i class="bi bi-image-fill me-2"></i>Page Banners</a>
       <hr class="my-2">
       <a class="<?= nav_active('treatments.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/treatments.php"><i class="bi bi-clipboard2-pulse me-2"></i>Treatments</a>

@@ -30,6 +30,10 @@ $packagesStmt = $pdo->prepare("
 $packagesStmt->execute([$destination['id']]);
 $packages = $packagesStmt->fetchAll();
 
+$galStmt = $pdo->prepare("SELECT * FROM destination_gallery WHERE destination_id = ? ORDER BY sort_order ASC, id ASC");
+$galStmt->execute([$destination['id']]);
+$gallery = $galStmt->fetchAll();
+
 $pageTitle = $destination['name'];
 $pageDescription = $destination['summary'];
 require_once __DIR__ . '/includes/header.php';
@@ -47,7 +51,7 @@ require_once __DIR__ . '/includes/header.php';
     <div class="col-lg-8">
       <img src="<?= e(img_url('destinations', $destination['image'])) ?>" class="w-100 rounded-4 mb-4" alt="<?= e($destination['name']) ?>" style="max-height:420px;object-fit:cover;">
       <h3 class="fw-heading">About <?= e($destination['name']) ?></h3>
-      <p><?= nl2br(e($destination['description'])) ?></p>
+      <div class="rich-content"><?= $destination['description'] ?></div>
 
       <?php if ($hospitals): ?>
       <h3 class="fw-heading mt-5">Hospitals in <?= e($destination['name']) ?></h3>
@@ -77,6 +81,16 @@ require_once __DIR__ . '/includes/header.php';
         <hr>
         <a href="<?= e(BASE_URL) ?>/quote.php" class="btn btn-primary rounded-pill w-100">Get Free Quote</a>
       </div>
+
+      <?php if ($gallery): ?>
+      <div class="mt-4">
+        <?php foreach ($gallery as $img): ?>
+          <a href="<?= e(img_url('destination-gallery', $img['image'])) ?>" target="_blank" rel="noopener" class="d-block mb-3">
+            <img src="<?= e(img_url('destination-gallery', $img['image'])) ?>" class="w-100" style="height:180px;object-fit:cover;">
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
 
       <?php if ($packages): ?>
       <div class="mt-4">
