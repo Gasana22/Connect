@@ -9,3 +9,16 @@ Options -Indexes
         Deny from all
     </IfModule>
 </FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Block direct browser access to internal-only folders (config,
+    # database, includes, and the admin panel's own includes folder).
+    # These are only ever loaded via PHP require, never requested directly.
+    RewriteRule ^(config|database|includes|marinka/includes)/ - [F,L]
+
+    # Uploaded files must never be executed as scripts, even if an
+    # attacker manages to upload a file with a disallowed extension.
+    RewriteRule ^uploads/.*\.(php|phtml|php3|php4|php5|php7|phar|pl|py|cgi|asp|aspx|sh|exe)$ - [F,L,NC]
+</IfModule>

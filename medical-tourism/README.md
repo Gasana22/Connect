@@ -91,7 +91,7 @@ medical-tourism/
 - Session cookies are `HttpOnly`, `SameSite=Lax` and marked `Secure` automatically over HTTPS.
 - Security response headers are sent on every page: `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`.
 - Raw PHP errors are never shown to visitors (`display_errors` off) — check your PHP error log if something goes wrong.
-- `.htaccess` files block direct access to `/config`, `/database`, `/includes` and `/marinka/includes`, and prevent any uploaded file from being executed as a script — even if it were somehow given a disallowed extension.
+- A single root `.htaccess` (requires `mod_rewrite`, on by default in XAMPP) blocks direct browser access to `/config`, `/database`, `/includes` and `/marinka/includes`, and prevents any uploaded file from being executed as a script — even if it were somehow given a disallowed extension.
 - The public lead/quote forms are throttled to one submission per 20 seconds per visitor.
 - Change the default admin password immediately after your first login.
 - **Database user:** this project defaults to XAMPP's `root` user with a blank password, which is fine for local development but should never be used if the site is exposed beyond your own machine. Before going live, create a dedicated MySQL user with access to only this database:
