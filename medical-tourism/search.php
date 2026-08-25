@@ -34,6 +34,8 @@ if ($destinationSlug !== '') {
 }
 
 $pageTitle = 'Search Results';
+$pageDescription = 'Search results for treatments, hospitals and destinations.';
+$pageNoIndex = true;
 require_once __DIR__ . '/includes/header.php';
 ?>
 

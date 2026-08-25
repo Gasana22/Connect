@@ -9,6 +9,7 @@ $destination = $stmt->fetch();
 if (!$destination) {
     http_response_code(404);
     $pageTitle = 'Destination Not Found';
+    $pageNoIndex = true;
     require_once __DIR__ . '/includes/header.php';
     echo '<div class="container py-5 text-center"><h1>Destination not found</h1><a href="' . e(BASE_URL) . '/destinations.php" class="btn btn-primary rounded-pill">Browse Destinations</a></div>';
     require_once __DIR__ . '/includes/footer.php';
@@ -36,6 +37,7 @@ $gallery = $galStmt->fetchAll();
 
 $pageTitle = $destination['name'];
 $pageDescription = $destination['summary'];
+$pageImage = img_url('destinations', $destination['image']);
 require_once __DIR__ . '/includes/header.php';
 ?>
 

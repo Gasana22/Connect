@@ -1,9 +1,19 @@
 <?php
 // Expects $pdo to already be available and functions.php to be loaded.
-// Optional per-page variables: $pageTitle, $pageDescription
+// Optional per-page variables (set before requiring this file):
+//   $pageTitle       page-specific title (site name is appended automatically)
+//   $pageDescription page-specific meta description, based on the record's own content
+//   $pageImage       absolute URL of a representative image (e.g. img_url('treatments', $t['image']))
+//   $pageType        Open Graph type, defaults to 'website' ('article' for blog posts)
+//   $pageNoIndex     true to mark thin/utility pages (search, thank-you, 404s) noindex
 $siteName = setting($pdo, 'site_name', "Let's Go Medical");
-$pageTitle = isset($pageTitle) && $pageTitle !== '' ? $pageTitle . ' | ' . $siteName : $siteName . ' - Trusted Medical Tourism';
+$rawPageTitle = $pageTitle ?? '';
+$pageTitle = $rawPageTitle !== '' ? $rawPageTitle . ' | ' . $siteName : $siteName . ' - Trusted Medical Tourism';
 $pageDescription = $pageDescription ?? setting($pdo, 'site_tagline', 'Compare hospitals, doctors and treatment packages abroad and get a free quote today.');
+$pageImage = $pageImage ?? (BASE_URL . '/assets/img/logo.svg');
+$pageType = $pageType ?? 'website';
+$pageNoIndex = $pageNoIndex ?? false;
+$canonicalUrl = BASE_URL . ($_SERVER['REQUEST_URI'] ?? '/');
 $currentPage = basename($_SERVER['PHP_SELF']);
 $flash = flash_get();
 ?>
@@ -14,6 +24,23 @@ $flash = flash_get();
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title><?= e($pageTitle) ?></title>
 <meta name="description" content="<?= e($pageDescription) ?>">
+<meta name="keywords" content="<?= e(($rawPageTitle !== '' ? $rawPageTitle . ', ' : '') . $siteName . ', medical tourism, treatment abroad, medical travel') ?>">
+<meta name="robots" content="<?= $pageNoIndex ? 'noindex,follow' : 'index,follow' ?>">
+<link rel="canonical" href="<?= e($canonicalUrl) ?>">
+
+<meta property="og:type" content="<?= e($pageType) ?>">
+<meta property="og:site_name" content="<?= e($siteName) ?>">
+<meta property="og:title" content="<?= e($pageTitle) ?>">
+<meta property="og:description" content="<?= e($pageDescription) ?>">
+<meta property="og:url" content="<?= e($canonicalUrl) ?>">
+<meta property="og:image" content="<?= e($pageImage) ?>">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="<?= e($pageTitle) ?>">
+<meta name="twitter:description" content="<?= e($pageDescription) ?>">
+<meta name="twitter:image" content="<?= e($pageImage) ?>">
+
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2224%22 font-size=%2224%22>%E2%9A%95%EF%B8%8F</text></svg>">
 <link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 <link href="<?= e(BASE_URL) ?>/assets/vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">

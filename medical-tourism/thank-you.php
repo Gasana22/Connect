@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/includes/init.php';
 $pageTitle = 'Thank You';
+$pageDescription = 'Your enquiry has been received. Our patient care team will be in touch shortly.';
+$pageNoIndex = true;
 require_once __DIR__ . '/includes/header.php';
 ?>
 

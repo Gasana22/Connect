@@ -18,6 +18,7 @@ $package = $stmt->fetch();
 if (!$package) {
     http_response_code(404);
     $pageTitle = 'Package Not Found';
+    $pageNoIndex = true;
     require_once __DIR__ . '/includes/header.php';
     echo '<div class="container py-5 text-center"><h1>Package not found</h1><a href="' . e(BASE_URL) . '/packages.php" class="btn btn-primary rounded-pill">Browse Packages</a></div>';
     require_once __DIR__ . '/includes/footer.php';
@@ -70,6 +71,7 @@ $mailtoHref = 'mailto:' . setting($pdo, 'site_email') . '?subject=' . rawurlenco
 
 $pageTitle = $package['title'];
 $pageDescription = $package['summary'];
+$pageImage = img_url('packages', $package['image']);
 require_once __DIR__ . '/includes/header.php';
 ?>
 

@@ -31,6 +31,8 @@ function nav_active($pages, $current) {
     <nav class="nav flex-column gap-1">
       <a class="<?= nav_active('index.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/index.php"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a>
       <a class="<?= nav_active('leads.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/leads.php"><i class="bi bi-inbox-fill me-2"></i>Leads / Enquiries</a>
+      <a class="<?= nav_active('analytics.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/analytics.php"><i class="bi bi-graph-up me-2"></i>Analytics</a>
+      <a class="<?= nav_active('security-log.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/security-log.php"><i class="bi bi-shield-lock-fill me-2"></i>Security Log</a>
       <hr class="my-2">
       <a class="<?= nav_active('home-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/home-page.php"><i class="bi bi-house-heart-fill me-2"></i>Home Page</a>
       <a class="<?= nav_active('about-page.php', $currentPage) ?>" href="<?= e(BASE_URL) ?>/marinka/about-page.php"><i class="bi bi-info-circle-fill me-2"></i>About Page</a>

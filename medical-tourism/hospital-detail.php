@@ -13,6 +13,7 @@ $hospital = $stmt->fetch();
 if (!$hospital) {
     http_response_code(404);
     $pageTitle = 'Hospital Not Found';
+    $pageNoIndex = true;
     require_once __DIR__ . '/includes/header.php';
     echo '<div class="container py-5 text-center"><h1>Hospital not found</h1><a href="' . e(BASE_URL) . '/hospitals.php" class="btn btn-primary rounded-pill">Browse Hospitals</a></div>';
     require_once __DIR__ . '/includes/footer.php';
@@ -29,6 +30,7 @@ $packages = $packagesStmt->fetchAll();
 
 $pageTitle = $hospital['name'];
 $pageDescription = $hospital['summary'];
+$pageImage = img_url('hospitals', $hospital['image']);
 require_once __DIR__ . '/includes/header.php';
 ?>
 

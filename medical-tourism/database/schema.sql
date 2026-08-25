@@ -332,6 +332,40 @@ CREATE TABLE settings (
     setting_value TEXT NULL
 ) ENGINE=InnoDB;
 
+-- ---------------------------------------------------------------------
+-- Analytics + security tracking
+-- ---------------------------------------------------------------------
+CREATE TABLE page_views (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    url VARCHAR(500) NOT NULL,
+    referrer VARCHAR(500) NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    country VARCHAR(100) NULL,
+    user_agent VARCHAR(255) NULL,
+    visitor_hash CHAR(64) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_pageviews_created (created_at),
+    INDEX idx_pageviews_ip (ip_address)
+) ENGINE=InnoDB;
+
+CREATE TABLE security_log (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_type ENUM('login_failed','login_success','login_locked','suspicious_request') NOT NULL,
+    ip_address VARCHAR(45) NOT NULL,
+    country VARCHAR(100) NULL,
+    detail VARCHAR(500) NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_seclog_created (created_at),
+    INDEX idx_seclog_ip (ip_address),
+    INDEX idx_seclog_type (event_type)
+) ENGINE=InnoDB;
+
+CREATE TABLE ip_geo_cache (
+    ip_address VARCHAR(45) NOT NULL PRIMARY KEY,
+    country VARCHAR(100) NULL,
+    looked_up_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB;
+
 INSERT INTO settings (setting_key, setting_value) VALUES
 ('site_name', "Let's Go Medical"),
 ('site_tagline', 'Your trusted partner in medical travel'),

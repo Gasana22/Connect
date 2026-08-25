@@ -25,6 +25,7 @@ $heroPrimaryBtn = setting($pdo, 'hero_primary_btn_text', 'Get My Free Quote');
 $heroSecondaryBtn = setting($pdo, 'hero_secondary_btn_text', 'Browse Treatments');
 
 $pageTitle = 'World-Class Healthcare, Made Affordable';
+$pageDescription = $heroSubtext;
 require_once __DIR__ . '/includes/header.php';
 ?>
 

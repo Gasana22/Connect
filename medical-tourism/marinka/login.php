@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = $stmt->fetch();
 
     if ($admin && $admin['locked_until'] && strtotime($admin['locked_until']) > time()) {
+        security_log_event($pdo, 'login_locked', $email);
         $error = 'Too many failed attempts. Please try again in a few minutes.';
     } elseif ($admin && password_verify($password, $admin['password'])) {
         session_regenerate_id(true);
@@ -24,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['admin_role'] = $admin['role'];
         $upd = $pdo->prepare("UPDATE admin_users SET last_login = NOW(), failed_attempts = 0, locked_until = NULL WHERE id = ?");
         $upd->execute([$admin['id']]);
+        security_log_event($pdo, 'login_success', $email);
         redirect(BASE_URL . '/marinka/index.php');
     } else {
         if ($admin) {
@@ -32,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $upd = $pdo->prepare("UPDATE admin_users SET failed_attempts = ?, locked_until = ? WHERE id = ?");
             $upd->execute([$attempts >= 5 ? 0 : $attempts, $lockedUntil, $admin['id']]);
         }
+        security_log_event($pdo, 'login_failed', $email);
         $error = 'Invalid email or password.';
     }
 }

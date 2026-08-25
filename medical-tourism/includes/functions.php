@@ -278,3 +278,127 @@ function star_rating($rating) {
     }
     return $html;
 }
+
+// -----------------------------------------------------------------------
+// Analytics + security tracking.
+//
+// Records page views (IP, country, referrer, page) and security events
+// (failed/successful admin logins, obviously malicious-looking requests)
+// so the admin panel can show visitor stats and flag suspicious IPs.
+// Every step here is wrapped defensively — if the DB write or the geo
+// lookup fails for any reason, the page must still render normally.
+// -----------------------------------------------------------------------
+
+// The visitor's real IP. Deliberately uses REMOTE_ADDR only (not
+// X-Forwarded-For), because that header is trivial for a client to spoof —
+// trusting it here would let an attacker plant a fake IP in the very log
+// meant to record their real one.
+function client_ip() {
+    return $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+}
+
+function is_private_ip($ip) {
+    return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE) === false;
+}
+
+// Looks up (and caches) the country for an IP using the free, keyless
+// ip-api.com API. Requires the server this site runs on to have outbound
+// internet access; fails silently (returns null) if it doesn't, is
+// offline, or the lookup times out.
+function geo_lookup_country(PDO $pdo, $ip) {
+    if ($ip === '0.0.0.0' || is_private_ip($ip)) {
+        return 'Local/Private';
+    }
+    try {
+        $stmt = $pdo->prepare("SELECT country, looked_up_at FROM ip_geo_cache WHERE ip_address = ?");
+        $stmt->execute([$ip]);
+        $cached = $stmt->fetch();
+        if ($cached && strtotime($cached['looked_up_at']) > strtotime('-30 days')) {
+            return $cached['country'];
+        }
+    } catch (PDOException $e) {
+        return null;
+    }
+
+    $country = null;
+    try {
+        $context = stream_context_create(['http' => ['timeout' => 1.5, 'ignore_errors' => true]]);
+        $response = @file_get_contents('http://ip-api.com/json/' . urlencode($ip) . '?fields=status,country', false, $context);
+        if ($response) {
+            $data = json_decode($response, true);
+            if (($data['status'] ?? '') === 'success' && !empty($data['country'])) {
+                $country = $data['country'];
+            }
+        }
+    } catch (Throwable $e) {
+        $country = null;
+    }
+
+    try {
+        $upsert = $pdo->prepare("INSERT INTO ip_geo_cache (ip_address, country) VALUES (?, ?) ON DUPLICATE KEY UPDATE country = VALUES(country), looked_up_at = NOW()");
+        $upsert->execute([$ip, $country]);
+    } catch (PDOException $e) {
+        // Non-fatal — just means we retry the lookup next visit.
+    }
+
+    return $country;
+}
+
+// Records one page view. Skips the admin panel itself so staff usage
+// doesn't pollute visitor analytics.
+function track_pageview(PDO $pdo) {
+    if (strpos($_SERVER['SCRIPT_NAME'] ?? '', '/marinka/') !== false) {
+        return;
+    }
+    try {
+        $ip = client_ip();
+        $country = geo_lookup_country($pdo, $ip);
+        $ua = substr($_SERVER['HTTP_USER_AGENT'] ?? '', 0, 255);
+        $url = substr($_SERVER['REQUEST_URI'] ?? '', 0, 500);
+        $referrer = substr($_SERVER['HTTP_REFERER'] ?? '', 0, 500);
+        $visitorHash = hash('sha256', $ip . '|' . $ua . '|' . date('Y-m-d'));
+
+        $stmt = $pdo->prepare("INSERT INTO page_views (url, referrer, ip_address, country, user_agent, visitor_hash) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$url, $referrer ?: null, $ip, $country, $ua ?: null, $visitorHash]);
+    } catch (PDOException $e) {
+        // Never let analytics break the page.
+    }
+}
+
+function security_log_event(PDO $pdo, $eventType, $detail = null) {
+    try {
+        $ip = client_ip();
+        $country = geo_lookup_country($pdo, $ip);
+        $stmt = $pdo->prepare("INSERT INTO security_log (event_type, ip_address, country, detail) VALUES (?, ?, ?, ?)");
+        $stmt->execute([$eventType, $ip, $country, $detail !== null ? substr($detail, 0, 500) : null]);
+    } catch (PDOException $e) {
+        // Never let logging break the request.
+    }
+}
+
+// Lightweight signature check for common attack patterns (SQL injection,
+// XSS, path traversal, PHP object injection) in the URL path and query
+// string. This only logs matches for admin visibility — it never blocks
+// the request, so it can't accidentally lock out a legitimate visitor
+// whose input happens to look unusual.
+function detect_suspicious_request(PDO $pdo) {
+    $target = ($_SERVER['REQUEST_URI'] ?? '') . ' ' . implode(' ', array_map('strval', $_GET));
+    $patterns = [
+        '/union\s+select/i',
+        '/select\s+.*\s+from\s+information_schema/i',
+        '/\bor\s+1\s*=\s*1\b/i',
+        '/<script[\s>]/i',
+        '/javascript\s*:/i',
+        '/on(error|load)\s*=/i',
+        '/\.\.\/\.\.\//',
+        '/\betc\/passwd\b/i',
+        '/base64_decode\s*\(/i',
+        '/\bunion\b.{0,20}\bselect\b/i',
+    ];
+    foreach ($patterns as $pattern) {
+        if (preg_match($pattern, $target)) {
+            security_log_event($pdo, 'suspicious_request', substr($target, 0, 300));
+            return;
+        }
+    }
+}

@@ -9,6 +9,7 @@ $treatment = $stmt->fetch();
 if (!$treatment) {
     http_response_code(404);
     $pageTitle = 'Treatment Not Found';
+    $pageNoIndex = true;
     require_once __DIR__ . '/includes/header.php';
     echo '<div class="container py-5 text-center"><h1>Treatment not found</h1><p class="text-muted">The treatment you are looking for does not exist or is no longer available.</p><a href="' . e(BASE_URL) . '/treatments.php" class="btn btn-primary rounded-pill">Browse Treatments</a></div>';
     require_once __DIR__ . '/includes/footer.php';
@@ -40,6 +41,7 @@ $relatedTreatments = $related->fetchAll();
 
 $pageTitle = $treatment['name'];
 $pageDescription = $treatment['summary'];
+$pageImage = img_url('treatments', $treatment['image']);
 require_once __DIR__ . '/includes/header.php';
 ?>
 

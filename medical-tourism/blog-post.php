@@ -9,6 +9,7 @@ $post = $stmt->fetch();
 if (!$post) {
     http_response_code(404);
     $pageTitle = 'Article Not Found';
+    $pageNoIndex = true;
     require_once __DIR__ . '/includes/header.php';
     echo '<div class="container py-5 text-center"><h1>Article not found</h1><a href="' . e(BASE_URL) . '/blog.php" class="btn btn-primary rounded-pill">Back to Blog</a></div>';
     require_once __DIR__ . '/includes/footer.php';
@@ -21,6 +22,8 @@ $relatedPosts = $related->fetchAll();
 
 $pageTitle = $post['title'];
 $pageDescription = $post['excerpt'];
+$pageImage = img_url('blog', $post['image']);
+$pageType = 'article';
 require_once __DIR__ . '/includes/header.php';
 ?>
 
