@@ -142,6 +142,16 @@ require_once __DIR__ . '/includes/header.php';
         <a href="<?= e($mailtoHref) ?>" class="btn btn-primary w-100"><i class="bi bi-envelope me-2"></i>Request a Price</a>
       </div>
 
+      <?php if ($gallery): ?>
+      <div class="mb-4">
+        <?php foreach ($gallery as $img): ?>
+          <a href="<?= e(img_url('package-gallery', $img['image'])) ?>" target="_blank" rel="noopener" class="d-block mb-3">
+            <img src="<?= e(img_url('package-gallery', $img['image'])) ?>" class="w-100" style="height:180px;object-fit:cover;">
+          </a>
+        <?php endforeach; ?>
+      </div>
+      <?php endif; ?>
+
       <?php if ($includesList): ?>
       <div class="card shadow-card p-4 mb-4">
         <h6 class="fw-heading">What's Included</h6>
@@ -161,16 +171,6 @@ require_once __DIR__ . '/includes/header.php';
             <li class="mb-2 text-muted"><i class="bi bi-x-circle-fill me-2"></i><?= e($item) ?></li>
           <?php endforeach; ?>
         </ul>
-      </div>
-      <?php endif; ?>
-
-      <?php if ($gallery): ?>
-      <div class="mt-4">
-        <?php foreach ($gallery as $img): ?>
-          <a href="<?= e(img_url('package-gallery', $img['image'])) ?>" target="_blank" rel="noopener" class="d-block mb-3">
-            <img src="<?= e(img_url('package-gallery', $img['image'])) ?>" class="w-100" style="height:180px;object-fit:cover;">
-          </a>
-        <?php endforeach; ?>
       </div>
       <?php endif; ?>
     </div>
