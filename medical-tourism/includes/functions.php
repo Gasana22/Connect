@@ -145,34 +145,54 @@ function handle_image_upload($fieldName, $destinationDir, $currentFile = null) {
     }
 
     // Re-encode through GD so only genuine decoded pixel data is ever
-    // written to disk. This strips EXIF/metadata and defeats polyglot
-    // files crafted to pass MIME sniffing while smuggling other content.
-    $image = null;
-    if ($ext === 'jpg' || $ext === 'jpeg') {
-        $image = @imagecreatefromjpeg($file['tmp_name']);
-    } elseif ($ext === 'png') {
-        $image = @imagecreatefrompng($file['tmp_name']);
-    } elseif ($ext === 'webp') {
-        $image = @imagecreatefromwebp($file['tmp_name']);
-    }
-    if (!$image) {
-        flash_set('danger', 'The uploaded file is not a valid image.');
-        return $currentFile;
+    // written to disk (strips EXIF/metadata and defeats polyglot files
+    // crafted to pass MIME sniffing). Guarded to fall back to a plain
+    // copy if GD lacks a needed function or the server's memory limit
+    // can't fit a large image — an upload must never hard-fail the
+    // request just because the extra hardening step isn't available.
+    $decodeFn = ['jpg' => 'imagecreatefromjpeg', 'jpeg' => 'imagecreatefromjpeg', 'png' => 'imagecreatefrompng', 'webp' => 'imagecreatefromwebp'][$ext];
+    $encodeFn = ['jpg' => 'imagejpeg', 'jpeg' => 'imagejpeg', 'png' => 'imagepng', 'webp' => 'imagewebp'][$ext];
+
+    if (function_exists($decodeFn) && function_exists($encodeFn) && function_exists('imagedestroy')) {
+        $previousMemoryLimit = ini_get('memory_limit');
+        if ($previousMemoryLimit !== '-1') {
+            @ini_set('memory_limit', '512M');
+        }
+
+        $image = @$decodeFn($file['tmp_name']);
+        if ($image) {
+            $saved = false;
+            if ($ext === 'png') {
+                imagealphablending($image, false);
+                imagesavealpha($image, true);
+                $saved = @imagepng($image, $targetPath, 6);
+            } elseif ($ext === 'webp') {
+                $saved = @imagewebp($image, $targetPath, 90);
+            } else {
+                $saved = @imagejpeg($image, $targetPath, 90);
+            }
+            imagedestroy($image);
+
+            if ($previousMemoryLimit !== '-1') {
+                @ini_set('memory_limit', $previousMemoryLimit);
+            }
+
+            if ($saved) {
+                return $newName;
+            }
+            flash_set('danger', 'The image could not be saved on the server.');
+            return $currentFile;
+        }
+
+        if ($previousMemoryLimit !== '-1') {
+            @ini_set('memory_limit', $previousMemoryLimit);
+        }
     }
 
-    $saved = false;
-    if ($ext === 'jpg' || $ext === 'jpeg') {
-        $saved = imagejpeg($image, $targetPath, 90);
-    } elseif ($ext === 'png') {
-        imagealphablending($image, false);
-        imagesavealpha($image, true);
-        $saved = imagepng($image, $targetPath, 6);
-    } elseif ($ext === 'webp') {
-        $saved = imagewebp($image, $targetPath, 90);
-    }
-    imagedestroy($image);
-
-    if ($saved) {
+    // GD couldn't handle it (missing format support, corrupt file, or a
+    // decode failure) — fall back to saving the already-validated upload
+    // as-is rather than blocking the upload entirely.
+    if (move_uploaded_file($file['tmp_name'], $targetPath)) {
         return $newName;
     }
     flash_set('danger', 'The image could not be saved on the server.');
